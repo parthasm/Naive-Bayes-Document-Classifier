@@ -3,7 +3,7 @@ Naive-Bayes-Document-Classifier
 
 Document Classification in python with some help from the Natural Language Toolkit, using a Multinomial Naive Bayes Classifier and experimenting with various feature selectors, till now only Mutual Information.
 
- NaiveBayes
+ NaiveBayes.py
  
  The ' NaiveBayes.py' implements a Multinomial Naive Bayes Classifier without using feature selection and without using 
  any kind of processing help from the Natural Language Toolkit (nltk). 
@@ -43,6 +43,8 @@ e) Macro-F1-Measure
 f) Micro-F1-Measure and 
 g) Fraction of Mis-Classified Documents
 
+The time taken to train the classifier and the time taken to run the classifier on the test set are also reported.
+
 Sources:
 
 http://rushdishams.blogspot.com/2011/08/micro-and-macro-average-of-precision.html
@@ -51,7 +53,6 @@ http://en.wikipedia.org/wiki/F1_score
 
 http://en.wikipedia.org/wiki/Precision_and_recall
 
+NaiveBayes_nltk_movie_reviews.py
 
-
-
- 
+Here, nltk is used for the processing tasks (a - Getting the category to document mapping). The corpus is the movie_reviews corpus provided with nltk. 
