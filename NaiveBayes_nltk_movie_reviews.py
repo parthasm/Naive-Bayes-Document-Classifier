@@ -17,7 +17,7 @@ sw = stopwords.words('english')
 #Here we are getting it using nltk
 categoriesFilenameDict={}
 
-#*************NON-GENERALIZED TEXT***********************************
+#*************NON-GENERALIZED CODE***********************************
 
 
 for category in mr.categories():
@@ -66,7 +66,7 @@ for fileName in trainset:
     
 
 ##6) Parse the string to get individual words
-#*************NON-GENERALIZED TEXT***********************************
+#*************NON-GENERALIZED CODE***********************************
     #listWords = re.split(r'\s+',string)
     #listWords = [w[:w.find('/')] for w in listWords if w.find('/')!=-1  and w[w.find('/')+1:]=='jj']
     #listWords = [w.lower() for w in listWords if w.isalnum() and w not in sw]
@@ -108,7 +108,7 @@ for fileName in testset:
     string = mr.raw(fileids=fileName)
 
 ##10) Similar step, parse the string to get individual words
-#*************NON-GENERALIZED TEXT***********************************
+#*************NON-GENERALIZED CODE***********************************
     #listWords = re.split(r'\s+',string)
     #listWords = [w[:w.find('/')] for w in listWords if w.find('/')!=-1  and w[w.find('/')+1:]=='jj']
     #listWords = [w.lower() for w in listWords if w.isalnum() and w not in sw]
