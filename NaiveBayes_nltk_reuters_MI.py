@@ -203,9 +203,10 @@ for fileName in testset:
     listWords = [w.lower() for w in listWords if w.isalpha() and len(w)>1 and not swd.get(w.lower(),False)
                  and WordList.get(w.lower(),False)]
     #!!!!!!!!------Possible Improvement: Stemming--------------#
-    if fileName=='test/15024':
-        print listWords
-    
+    ###--------------------DEBUG STATEMENTS----------------------
+    #if fileName=='test/15024':
+     #   print listWords
+    ###--------------------DEBUG STATEMENTS----------------------
 ##11) Get the probability for each category,
     #can use any of the created dictionaries to wade through the categories
     for cat in  CatWordCountDict:
