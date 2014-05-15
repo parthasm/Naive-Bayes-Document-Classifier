@@ -5,13 +5,18 @@ import re
 #from os import listdir
 from os.path import isfile, join
 from math import log
+import time
+start_time = time.time()
 
 trainset=[]
 testset=[]
 trainToTestRatio=0.3
 size=0
 sw = stopwords.words('english')
+swd={}
 
+for w in sw:
+    swd[w]=True
 ##1)alternate way, to be implemented, get the categories and the corresponding
 ##list of files from the user,
 #Here we are getting it using nltk
@@ -98,6 +103,12 @@ for dic in CatWordDict.values():
      vocabLength+=len(dic)
 
 
+print "The Classifier is trained and it took"
+print time.time() - start_time, "seconds"
+start_time = time.time()
+
+
+
 ####Congratulations! the Classifier is trained, now it is time to run the Multinomial Naive Bayes Classifier on the test dataset
 
 liResults=[]
@@ -175,3 +186,8 @@ print "F-measure =", (2*Precision*Recall)/(Precision+Recall)
 
 numErrors = sum(t[1]!=t[2] for t in liResults)
 print "Fraction of Errors = ", numErrors/len(testset)
+
+
+
+print "The time taken by the trained classifier to assign labels"
+print time.time() - start_time, "seconds"
