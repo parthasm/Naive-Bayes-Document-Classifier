@@ -179,7 +179,9 @@ for fileName in trainset:
 vocabLength=0            
 for cat in CatWordDict.keys():
     length = len(CatWordDict[cat])
-    print cat, length
+    ###--------------------DEBUG STATEMENTS----------------------
+    #print cat, length
+    ###--------------------DEBUG STATEMENTS----------------------
     vocabLength+=length
 
 
