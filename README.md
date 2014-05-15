@@ -40,7 +40,8 @@ b) Micro-Precision,
 c) Macro-Recall,
 d) Micro-Recall,
 e) Macro-F1-Measure
-f) Micro-F1-Measure
+f) Micro-F1-Measure and 
+g) Fraction of Mis-Classified Documents
 
 Sources:
 
