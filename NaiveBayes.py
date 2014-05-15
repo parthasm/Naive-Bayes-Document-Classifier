@@ -5,6 +5,10 @@ import re
 #from os import listdir
 from os.path import isfile, join
 from math import log
+import time
+
+start_time = time.time()
+
 
 trainset=[]
 testset=[]
@@ -119,6 +123,10 @@ for dic in CatWordDict.values():
 
 ####Congratulations! the Classifier is trained, now it is time to run the Multinomial Naive Bayes Classifier on the test dataset
 
+print "The Classifier is trained and it took"
+print time.time() - start_time, "seconds"
+start_time = time.time()
+
 liResults=[]
 #9) Like in the training set,Loop through the test set, to get the entire text from  each file
 for fileName in testset:
@@ -224,3 +232,8 @@ print "Micro F-measure=",MicroF
 
 numErrors = sum(t[1]!=t[2] for t in liResults)
 print numErrors/len(testset)
+
+
+
+print "The time taken by the trained classifier to assign labels"
+print time.time() - start_time, "seconds"
