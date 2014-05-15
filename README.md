@@ -53,6 +53,24 @@ http://en.wikipedia.org/wiki/F1_score
 
 http://en.wikipedia.org/wiki/Precision_and_recall
 
+
 NaiveBayes_nltk_movie_reviews.py
 
-Here, nltk is used for the processing tasks (a - Getting the category to document mapping). The corpus is the movie_reviews corpus provided with nltk. 
+Here, nltk is used for one of the processing tasks (a - Getting the category to document mapping). The corpus is the movie_reviews corpus provided with nltk. 
+
+
+NaiveBayes_nltk_reuters.py
+
+Here, nltk is used for processing tasks a) & b). The corpus is the reuters corpus provided with nltk. Only the documents with one tag are considered. This restricts the task to single-category classification for each document.
+
+Out of these documents, only the categories with more than 20 documents in the training set and more than 20 documents in the test set are considered. This reduces the skewness of the dataset. 
+
+
+NaiveBayes_nltk_reuters_MI.py
+
+Same as previous, except mutual information is used for feature selection. The number of features per category is restricted to 500. This results in slight degradation of performance and slightly more time to train the classifier but less time to run the classifer over the test set.
+
+http://nlp.stanford.edu/IR-book/pdf/13bayes.pdf Page-20
+
+Note: I have experimented and found that the best results are obtained with a slightly different formula. 
+Refer the code for my change. The original formula seems to be more useful if there are only 2 categories but fails for more than 2 categories. 
