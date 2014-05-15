@@ -33,4 +33,12 @@ b) Splitting the dataset into training set and test set.
 
 c) Tokenization: Splitting the raw text from each document into tokens, for documents in both training dataset and test dataset.
 
+The final result is reported as the following parameters:
+
+a) Macro-Precision
+b) Micro-Precision
+c) Macro-Recall
+d) Micro-Recall
+e)
+
  
