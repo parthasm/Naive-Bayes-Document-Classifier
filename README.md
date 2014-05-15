@@ -3,6 +3,8 @@ Naive-Bayes-Document-Classifier
 
 Document Classification in python with some help from the Natural Language Toolkit, using a Multinomial Naive Bayes Classifier and experimenting with various feature selectors, till now only Mutual Information.
 
+Note to the reader: The source code files are described in the order of most simple to most advanced as you navigate from top to bottom.
+
  NaiveBayes.py
  
  The ' NaiveBayes.py' implements a Multinomial Naive Bayes Classifier without using feature selection and without using 
