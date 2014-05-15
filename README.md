@@ -35,10 +35,22 @@ c) Tokenization: Splitting the raw text from each document into tokens, for docu
 
 The final result is reported as the following parameters:
 
-a) Macro-Precision
-b) Micro-Precision
-c) Macro-Recall
-d) Micro-Recall
-e)
+a) Macro-Precision,
+b) Micro-Precision,
+c) Macro-Recall,
+d) Micro-Recall,
+e) Macro-F1-Measure
+f) Micro-F1-Measure
+
+Sources:
+
+http://rushdishams.blogspot.com/2011/08/micro-and-macro-average-of-precision.html
+
+http://en.wikipedia.org/wiki/F1_score
+
+http://en.wikipedia.org/wiki/Precision_and_recall
+
+
+
 
  
