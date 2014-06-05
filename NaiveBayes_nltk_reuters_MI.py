@@ -1,7 +1,7 @@
 from __future__ import division
 from nltk.corpus import reuters
 from nltk.corpus import stopwords
-from Tokenizer_nltk_reuters import get_list_tokens
+from Tokenizer import get_list_tokens_nltk_reuters
 from Evaluation import evaluation_multi_class
 import re
 import operator
@@ -66,7 +66,7 @@ N = len(trainset)
 ##C) Parse the string to get individual words
 
 for fileName in trainset:
-    listWords = get_list_tokens(fileName)
+    listWords = get_list_tokens_nltk_reuters(fileName)
     
     cat = reuters.categories(fileids=fileName)[0]
     
@@ -130,7 +130,7 @@ CatWordCountDict={}
 ##5)Loop through the training set, to get the entire text from  each file
 ##6) Parse the string to get individual words
 for fileName in trainset:
-    listWords = get_list_tokens(fileName)
+    listWords = get_list_tokens_nltk_reuters(fileName)
     cat = reuters.categories(fileids=fileName)[0]
     listWords = [w for w in listWords if WordFeatures[cat].get(w,-100000)!=-100000]
     #!!!!!!!!------Possible Improvement: Stemming--------------#
