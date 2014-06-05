@@ -1,22 +1,38 @@
 from __future__ import division
 from nltk.corpus import reuters
-from nltk.corpus import stopwords
-import re
+from Tokenizer_nltk_reuters import get_list_tokens
+from Evaluation import evaluation_multi_class
 #from os import listdir
 from os.path import isfile, join
 from math import log
 import time
 
+def get_testset_trainset():
+    cleanFiles = [f for f in reuters.fileids() if len(reuters.categories(fileids=f))==1]    
+    testset = [f for f in cleanFiles if f[:5]=='test/']
+    trainset = [f for f in cleanFiles if f[:9]=='training/']
+    for cat in reuters.categories():
+        li=[f for f in reuters.fileids(categories=cat) if f in trainset]
+        liTe = [f for f in reuters.fileids(categories=cat) if f in testset]
+        if len(li)>20 and len(liTe)>20:
+            CatNumDocs[cat]=len(li)
+            li.extend(liTe)
+            categoriesFilenameDict[cat]=li
+    return [[ f for f in trainset if reuters.categories(fileids=f)[0] in categoriesFilenameDict],
+            [ f for f in testset if reuters.categories(fileids=f)[0] in categoriesFilenameDict]]
+
+
+
+    
+
+
+
+
+
+    
+
 start_time = time.time()
 
-
-trainset=[]
-testset=[]
-sw = stopwords.words('english')
-swd={}
-
-for w in sw:
-    swd[w]=True
 #Here, apart from the naive bayes classifier, everything is done by nltk
 
 ##2)Forming Prepare the CatNumDocs dictionary, where the number of documents in the training set for each
@@ -25,20 +41,12 @@ for w in sw:
     ##No need of reverse dictionary as getting the category from the fileid is straighforward
 categoriesFilenameDict={}
 CatNumDocs={}
+li = get_testset_trainset()
+testset = li[1]
+trainset = li[0]
 
-cleanFiles = [f for f in reuters.fileids() if len(reuters.categories(fileids=f))==1]
-testset = [f for f in cleanFiles if f[:5]=='test/']
-trainset = [f for f in cleanFiles if f[:9]=='training/']
-for cat in reuters.categories():
-    li=[f for f in reuters.fileids(categories=cat) if f in trainset]
-    liTe = [f for f in reuters.fileids(categories=cat) if f in testset]
-    if len(li)>20 and len(liTe)>20:
-        CatNumDocs[cat]=len(li)
-        li.extend(liTe)
-        categoriesFilenameDict[cat]=li
 
-trainset = [ f for f in trainset if reuters.categories(fileids=f)[0] in categoriesFilenameDict]    
-testset = [ f for f in testset if reuters.categories(fileids=f)[0] in categoriesFilenameDict]
+
 
     
 
@@ -61,17 +69,10 @@ CatWordDict={}
 CatWordCountDict={}
 #val = my_dict.get(key, mydefaultval)
 
-##5)Loop through the training set, to get the entire text from  each file
+##5&6)Loop through the training set, to get the individual words
 
 for fileName in trainset:
-    string = reuters.raw(fileids=fileName)
-
-##6) Parse the string to get individual words
-
-
-    listWords = re.split(r'\W+',string)
-    listWords = [w.lower() for w in listWords if w.isalpha() and len(w)>1 and not swd.get(w.lower(),False)]
-    #!!!!!!!!------Possible Improvement: Stemming--------------#
+    listWords = get_list_tokens(fileName)
 
 
 ##7) Check if category exists in dictionary, if not, create an empty dictionary,
@@ -115,17 +116,16 @@ start_time = time.time()
 
 
 liResults=[]
-#9) Like in the training set,Loop through the test set, to get the entire text from  each file
+#9 & 10) Like in the training set,Loop through the test set, to get the individual words
 for fileName in testset:
     minimumNegLogProb=1000000000
     minCategory=''
-    string = reuters.raw(fileids=fileName)
+    listWords = get_list_tokens(fileName)
 
-##10) Similar step, parse the string to get individual words
 
-    listWords = re.split(r'\W+',string)
-    listWords = [w.lower() for w in listWords if w.isalpha() and len(w)>1 and not swd.get(w.lower(),False)]
-    #!!!!!!!!------Possible Improvement: Stemming--------------#
+
+    
+    
 
     
 ##11) Get the probability for each category,
@@ -152,72 +152,9 @@ for fileName in testset:
 #for t in liResults:
  #   print t    
 ###--------------------DEBUG STATEMENTS----------------------
-#12) Create a dictionary with category as the key and a list of 4 numbers as the value
- #These values are a) Number of docs in the category identified correctly a
-                  #b) Number of docs identified incorrectly as in the category b
-                  #c) Number of docs identified incorrectly as not in the category c
-                  #d) Number of docs identified correctly as not in the category d
-CatResultsDict = {}
-for cat in CatWordCountDict:
-    CatResultsDict[cat]=[0,0,0,0]
-    for t in liResults:
-        if cat==t[1]:
-            if cat==t[2]:
-                CatResultsDict[cat][0]+=1
-            else:
-                CatResultsDict[cat][1]+=1
-        else:
-            if cat==t[2]:
-                CatResultsDict[cat][2]+=1
-            else:
-                CatResultsDict[cat][3]+=1
-
-totPrec=0
-totRec=0
-A=0
-B=0
-C=0
-D=0
-for cat in CatResultsDict:
-    a = CatResultsDict[cat][0]
-    b = CatResultsDict[cat][1]
-    c = CatResultsDict[cat][2]
-    d = CatResultsDict[cat][3]
-    totPrec+=a/(a+b)##Precision for this category
-    totRec+=a/(a+c)##Recall for this category
-    A+=a
-    B+=b
-    C+=c
-    D+=d
-###--------------------DEBUG STATEMENTS----------------------
-    #print cat, a
-    #print cat, b
-    #print cat, c
-    #print cat, d
-    #print (a+b+c+d)==len(testset)
-###--------------------DEBUG STATEMENTS----------------------
-MacroPrec = totPrec/len(CatResultsDict)
-MacroRec = totRec/len(CatResultsDict)
-MacroF = (2*MacroPrec*MacroRec)/(MacroPrec+MacroRec)
-
-MicroPrec = A/(A+B)
-MicroRec = A/(A+C)
-MicroF = (2*MicroPrec*MicroRec)/(MicroPrec+MicroRec)
-
-print "Macro Precision=",MacroPrec
-print "Macro Recall=",MacroRec
-print "Macro F-measure=",MacroF
-
-print "Micro Precision=",MicroPrec
-print "Micro Recall=",MicroRec
-print "Micro F-measure=",MicroF
-
-    
 
 
-numErrors = sum(t[1]!=t[2] for t in liResults)
-print numErrors/len(testset)
-
+evaluation_multi_class(liResults,CatWordCountDict.keys())
 
 print "The time taken by the trained classifier to assign labels"
 print time.time() - start_time, "seconds"
