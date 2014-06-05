@@ -1,16 +1,43 @@
 from __future__ import division
 from nltk.corpus import movie_reviews as mr
 from nltk.corpus import stopwords
+from Evaluation import evaluation_binary
 import re
 #from os import listdir
 from os.path import isfile, join
 from math import log
 import time
+
+def get_list_tokens(fileName):
+    string = mr.raw(fileids=fileName)
+    listWords = re.split(r'\W+',string)
+    return [w.lower() for w in listWords if w.isalpha() and len(w)>2 and not swd.get(w.lower(),False)]
+#*************NON-GENERALIZED CODE***********************************
+    #listWords = re.split(r'\s+',string)
+    #listWords = [w[:w.find('/')] for w in listWords if w.find('/')!=-1  and w[w.find('/')+1:]=='jj']
+    #listWords = [w.lower() for w in listWords if w.isalnum() and w not in sw]
+
+    
+    #!!!!!!!!------Possible Improvement: Stemming--------------#
+#********************************************************************    
+
+
+def get_testset_trainset(trainToTestRatio=0.3):
+    train_test = [[],[]]
+    for cat in categoriesFilenameDict.keys():
+        li = categoriesFilenameDict[cat]
+        size=int(len(li)*trainToTestRatio)
+        CatNumDocs[cat]=size
+        train_test[0].extend(li[:size])
+        train_test[1].extend(li[size:])
+    return train_test
+
+
+
 start_time = time.time()
 
-trainset=[]
-testset=[]
-trainToTestRatio=0.3
+
+
 size=0
 sw = stopwords.words('english')
 swd={}
@@ -39,13 +66,9 @@ for category in mr.categories():
              ##category are stored
     ##also forming the training set and test set
 CatNumDocs={}
-for cat in categoriesFilenameDict.keys():
-    li = categoriesFilenameDict[cat]
-    size=int(len(li)*trainToTestRatio)
-    CatNumDocs[cat]=size
-    trainset.extend(li[:size])
-    testset.extend(li[size:])
-
+lis = get_testset_trainset()
+trainset=lis[0]
+testset=lis[1]
 ###--------------------DEBUG STATEMENTS----------------------
 #for f in trainset:
  #   print f , FilenameCategoriesDict[f] 
@@ -65,21 +88,10 @@ CatWordCountDict={}
 #val = my_dict.get(key, mydefaultval)
 
 ##5)Loop through the training set, to get the entire text from  each file
-
-for fileName in trainset:
-    string = mr.raw(fileids=fileName)
-    
-
 ##6) Parse the string to get individual words
-#*************NON-GENERALIZED CODE***********************************
-    #listWords = re.split(r'\s+',string)
-    #listWords = [w[:w.find('/')] for w in listWords if w.find('/')!=-1  and w[w.find('/')+1:]=='jj']
-    #listWords = [w.lower() for w in listWords if w.isalnum() and w not in sw]
-
-    listWords = re.split(r'\W+',string)
-    listWords = [w.lower() for w in listWords if w.isalnum() and w not in sw]
-    #!!!!!!!!------Possible Improvement: Stemming--------------#
-#********************************************************************    
+for fileName in trainset:
+    listWords = get_list_tokens(fileName)
+    
 
 ##7) Check if category exists in dictionary, if not, create an empty dictionary,
     #and put word count as zero
@@ -113,21 +125,13 @@ start_time = time.time()
 
 liResults=[]
 #9) Like in the training set,Loop through the test set, to get the entire text from  each file
+##10) Similar step, parse the string to get individual words
 for fileName in testset:
     minimumNegLogProb=1000000000
     minCategory=''
-    string = mr.raw(fileids=fileName)
+    listWords = get_list_tokens(fileName)
 
-##10) Similar step, parse the string to get individual words
-#*************NON-GENERALIZED CODE***********************************
-    #listWords = re.split(r'\s+',string)
-    #listWords = [w[:w.find('/')] for w in listWords if w.find('/')!=-1  and w[w.find('/')+1:]=='jj']
-    #listWords = [w.lower() for w in listWords if w.isalnum() and w not in sw]
 
-    listWords = re.split(r'\W+',string)
-    listWords = [w.lower() for w in listWords if w.isalnum() and w not in sw]
-    #!!!!!!!!------Possible Improvement: Stemming--------------#
-#********************************************************************    
     
 ##11) Get the probability for each category,
     #can use any of the created dictionaries to wade through the categories
@@ -145,7 +149,7 @@ for fileName in testset:
             minCategory=cat
             minimumNegLogProb=negLogProb
 
-    liResults.append((fileName,minCategory,mr.categories(fileids=fileName)[0],minimumNegLogProb))
+    liResults.append((fileName,minCategory,mr.categories(fileids=fileName)[0]))
 
 ###--------------------DEBUG STATEMENTS----------------------
 #for t in liResults:
@@ -155,39 +159,8 @@ for fileName in testset:
     
 ###--------------------DEBUG STATEMENTS----------------------
 
-#12) Calculate the precision, reacall and f-measure  
-a=0
-b=0
-c=0
-d=0
-if len(CatWordCountDict)<3:
-    cat = CatWordCountDict.keys()[0]
-    for t in liResults:
-        if cat==t[1]:
-            if cat==t[2]:
-                a+=1
-            else:
-                b+=1
-        else:
-            if cat==t[2]:
-                c+=1
-            else:
-                d+=1
-Precision = a/(a+b)
-Recall = a/(a+c)
-
-print "Precision =", Precision
-print "Recall =", Recall
-print "F-measure =", (2*Precision*Recall)/(Precision+Recall)
-
-###--------------------DEBUG STATEMENTS----------------------
-#print (a+b+c+d)==len(testset)
-###--------------------DEBUG STATEMENTS----------------------
-
-numErrors = sum(t[1]!=t[2] for t in liResults)
-print "Fraction of Errors = ", numErrors/len(testset)
-
-
+#12) Evaluating the classifier
+evaluation_binary(liResults,CatWordCountDict.keys())
 
 print "The time taken by the trained classifier to assign labels"
 print time.time() - start_time, "seconds"
