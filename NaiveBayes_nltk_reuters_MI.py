@@ -10,11 +10,23 @@ from os.path import isfile, join
 from math import log
 import time
 
+
+def get_testset_trainset():
+    cleanFiles = [f for f in reuters.fileids() if len(reuters.categories(fileids=f))==1]    
+    testset = [f for f in cleanFiles if f[:5]=='test/']
+    trainset = [f for f in cleanFiles if f[:9]=='training/']
+    for cat in reuters.categories():
+        li=[f for f in reuters.fileids(categories=cat) if f in trainset]
+        liTe = [f for f in reuters.fileids(categories=cat) if f in testset]
+        if len(li)>20 and len(liTe)>20:
+            CatNumDocs[cat]=len(li)
+            li.extend(liTe)
+            categoriesFilenameDict[cat]=li
+    return [[ f for f in trainset if reuters.categories(fileids=f)[0] in categoriesFilenameDict],
+            [ f for f in testset if reuters.categories(fileids=f)[0] in categoriesFilenameDict]]
+
 start_time = time.time()
 
-
-trainset=[]
-testset=[]
 #Here, apart from the naive bayes classifier, everything is done by nltk
 
 ##2)Forming Prepare the CatNumDocs dictionary, where the number of documents in the training set for each
@@ -23,22 +35,12 @@ testset=[]
     ##No need of reverse dictionary as getting the category from the fileid is straighforward
 categoriesFilenameDict={}
 CatNumDocs={}
+li = get_testset_trainset()
+testset = li[1]
+trainset = li[0]
 
-cleanFiles = [f for f in reuters.fileids() if len(reuters.categories(fileids=f))==1]
-testset = [f for f in cleanFiles if f[:5]=='test/']
-trainset = [f for f in cleanFiles if f[:9]=='training/']
-for cat in reuters.categories():
-    li=[f for f in reuters.fileids(categories=cat) if f in trainset]
-    liTe = [f for f in reuters.fileids(categories=cat) if f in testset]
-    if len(li)>20 and len(liTe)>20:
-        CatNumDocs[cat]=len(li)
-        li.extend(liTe)
-        categoriesFilenameDict[cat]=li
 
-trainset = [ f for f in trainset if reuters.categories(fileids=f)[0] in categoriesFilenameDict]    
-testset = [ f for f in testset if reuters.categories(fileids=f)[0] in categoriesFilenameDict]
 
-    
 
 
 ###--------------------DEBUG STATEMENTS----------------------
