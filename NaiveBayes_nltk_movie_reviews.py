@@ -2,24 +2,13 @@ from __future__ import division
 from nltk.corpus import movie_reviews as mr
 from nltk.corpus import stopwords
 from Evaluation import evaluation_binary
+from Tokenizer import get_list_tokens_nltk_mr
 import re
 #from os import listdir
 from os.path import isfile, join
 from math import log
 import time
 
-def get_list_tokens(fileName):
-    string = mr.raw(fileids=fileName)
-    listWords = re.split(r'\W+',string)
-    return [w.lower() for w in listWords if w.isalpha() and len(w)>2 and not swd.get(w.lower(),False)]
-#*************NON-GENERALIZED CODE***********************************
-    #listWords = re.split(r'\s+',string)
-    #listWords = [w[:w.find('/')] for w in listWords if w.find('/')!=-1  and w[w.find('/')+1:]=='jj']
-    #listWords = [w.lower() for w in listWords if w.isalnum() and w not in sw]
-
-    
-    #!!!!!!!!------Possible Improvement: Stemming--------------#
-#********************************************************************    
 
 
 def get_testset_trainset(trainToTestRatio=0.3):
@@ -90,7 +79,7 @@ CatWordCountDict={}
 ##5)Loop through the training set, to get the entire text from  each file
 ##6) Parse the string to get individual words
 for fileName in trainset:
-    listWords = get_list_tokens(fileName)
+    listWords = get_list_tokens_nltk_mr(fileName)
     
 
 ##7) Check if category exists in dictionary, if not, create an empty dictionary,
@@ -129,7 +118,7 @@ liResults=[]
 for fileName in testset:
     minimumNegLogProb=1000000000
     minCategory=''
-    listWords = get_list_tokens(fileName)
+    listWords = get_list_tokens_nltk_mr(fileName)
 
 
     
