@@ -1,11 +1,8 @@
 from __future__ import division
 from nltk.corpus import movie_reviews as mr
-from nltk.corpus import stopwords
+from FilenameToCat import movie_Reviews_f2c
 from Evaluation import evaluation_binary
 from Tokenizer import get_list_tokens_nltk_mr
-import re
-#from os import listdir
-from os.path import isfile, join
 from math import log
 import time
 
@@ -21,18 +18,9 @@ def get_testset_trainset(trainToTestRatio=0.3):
         train_test[1].extend(li[size:])
     return train_test
 
-
-
 start_time = time.time()
-
-
-
 size=0
-sw = stopwords.words('english')
-swd={}
 
-for w in sw:
-    swd[w]=True
 ##1)alternate way, to be implemented, get the categories and the corresponding
 ##list of files from the user,
 #Here we are getting it using nltk
@@ -85,17 +73,17 @@ for fileName in trainset:
 ##7) Check if category exists in dictionary, if not, create an empty dictionary,
     #and put word count as zero
     #and then insert words into the category's dictionary in both cases and update the word count
-    cat = mr.categories(fileids=fileName)[0]
-    if CatWordDict.get(cat, -1)==-1:
-        CatWordDict[cat]={}
-        CatWordCountDict[cat]=0
+    cat = movie_Reviews_f2c(fileName)
+    CatWordDict[cat] = CatWordDict.get(cat,{})
+    CatWordCountDict[cat] = CatWordCountDict.get(cat,0)
+    
 
-    CatWordCountDict[cat]+=len(listWords)            
+    CatWordCountDict[cat]+=len(listWords)
+    
     for w in listWords:
-        if CatWordDict[cat].get(w, -21)==-21:
-            CatWordDict[cat][w]=1
-        else:
-            CatWordDict[cat][w]+=1
+        CatWordDict[cat][w] = CatWordDict[cat].get(w, 0)
+        CatWordDict[cat][w]+=1
+        
         
 
 ##8) Get the vocabulary length
@@ -111,7 +99,7 @@ start_time = time.time()
 
 
 ####Congratulations! the Classifier is trained, now it is time to run the Multinomial Naive Bayes Classifier on the test dataset
-
+lengthTrain = len(trainset)
 liResults=[]
 #9) Like in the training set,Loop through the test set, to get the entire text from  each file
 ##10) Similar step, parse the string to get individual words
@@ -126,7 +114,7 @@ for fileName in testset:
     #can use any of the created dictionaries to wade through the categories
     for cat in  CatWordCountDict:
         #print cat , CatNumDocs[cat]/len(trainset)
-        negLogProb=-log(CatNumDocs[cat]/len(trainset))
+        negLogProb=-log(CatNumDocs[cat]/lengthTrain)
         wordDict = CatWordDict[cat]
         countCat = CatWordCountDict[cat]
         for w in listWords:
@@ -138,7 +126,7 @@ for fileName in testset:
             minCategory=cat
             minimumNegLogProb=negLogProb
 
-    liResults.append((fileName,minCategory,mr.categories(fileids=fileName)[0]))
+    liResults.append((fileName,minCategory,movie_Reviews_f2c(fileName)))
 
 ###--------------------DEBUG STATEMENTS----------------------
 #for t in liResults:
