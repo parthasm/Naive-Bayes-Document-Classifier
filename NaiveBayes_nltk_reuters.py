@@ -1,6 +1,6 @@
 from __future__ import division
 from nltk.corpus import reuters
-from Tokenizer import get_list_tokens_nltk_reuters
+from Tokenizer_nltk_reuters import get_list_tokens
 from Evaluation import evaluation_multi_class
 #from os import listdir
 from os.path import isfile, join
@@ -72,16 +72,16 @@ CatWordCountDict={}
 ##5&6)Loop through the training set, to get the individual words
 
 for fileName in trainset:
-    listWords = get_list_tokens_nltk_reuters(fileName)
+    listWords = get_list_tokens(fileName)
 
 
 ##7) Check if category exists in dictionary, if not, create an empty dictionary,
     #and put word count as zero
     #and then insert words into the category's dictionary in both cases and update the word count
     cat = reuters.categories(fileids=fileName)[0]
-    if CatWordDict.get(cat, -1)==-1:
-        CatWordDict[cat]={}
-        CatWordCountDict[cat]=0
+    CatWordDict[cat] = CatWordDict.get(cat,{})
+    CatWordCountDict[cat]= CatWordCountDict.get(cat,0)
+    
  ##Update the dictionary - 2 possible ways
     ##A) loop over the set of words and update dictionary with log value
         ##Complexity- n(set)*n(count operation) = O(n^2)
@@ -120,7 +120,7 @@ liResults=[]
 for fileName in testset:
     minimumNegLogProb=1000000000
     minCategory=''
-    listWords = get_list_tokens_nltk_reuters(fileName)
+    listWords = get_list_tokens(fileName)
 
 
 
