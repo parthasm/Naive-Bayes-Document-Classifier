@@ -1,13 +1,10 @@
 from __future__ import division
 from nltk.corpus import reuters
-from nltk.corpus import stopwords
+from FilenameToCat import reuters_f2c
 from Tokenizer import get_list_tokens_nltk_reuters
 from Feature_Selector import mutual_information
 from Evaluation import evaluation_multi_class
-import re
 import operator
-#from os import listdir
-from os.path import isfile, join
 from math import log
 import time
 
@@ -24,16 +21,9 @@ def get_testset_trainset():
             CatNumDocs[cat]=len(li)
             li.extend(liTe)
             categoriesFilenameDict[cat]=li
-    return [[ f for f in trainset if reuters.categories(fileids=f)[0] in categoriesFilenameDict],
-            [ f for f in testset if reuters.categories(fileids=f)[0] in categoriesFilenameDict]]
+    return [[ f for f in trainset if reuters_f2c(f) in categoriesFilenameDict],
+            [ f for f in testset if reuters_f2c(f) in categoriesFilenameDict]]
 
-def prepare_FilenameCatsDict_train_test(trainset,testset):
-    li = [{},{}]
-    for f in trainset:
-        li[0][f]=reuters.categories(fileids=f)[0]
-    for f in testset:
-        li[1][f]=reuters.categories(fileids=f)[0]       
-    return li
 
 start_time = time.time()
 
@@ -50,12 +40,6 @@ testset = li[1]
 trainset = li[0]
 
 
-
-li = prepare_FilenameCatsDict_train_test(trainset,testset)
-FilenameCatsDict_Train = li[0]
-FilenameCatsDict_Test = li[1]
-
-
 ###--------------------DEBUG STATEMENTS----------------------
 #for f in trainset:
  #   print f , FilenameCategoriesDict[f] 
@@ -65,7 +49,7 @@ FilenameCatsDict_Test = li[1]
 #for f in testset:
  #   print f    
 ###--------------------DEBUG STATEMENTS----------------------
-li = mutual_information(FilenameCatsDict_Train,CatNumDocs)
+li = mutual_information(CatNumDocs,trainset)
 WordFeatures = li[0]
 WordList = li[1]
     
@@ -79,7 +63,7 @@ CatWordCountDict={}
 ##6) Parse the string to get individual words
 for fileName in trainset:
     listWords = get_list_tokens_nltk_reuters(fileName)
-    cat = reuters.categories(fileids=fileName)[0]
+    cat = reuters_f2c(fileName)
     listWords = [w for w in listWords if WordFeatures[cat].get(w,-100000)!=-100000]
     #!!!!!!!!------Possible Improvement: Stemming--------------#
 
@@ -87,10 +71,9 @@ for fileName in trainset:
 ##7) Check if category exists in dictionary, if not, create an empty dictionary,
     #and put word count as zero
     #and then insert words into the category's dictionary in both cases and update the word count
-    cat = reuters.categories(fileids=fileName)[0]
-    if CatWordDict.get(cat, -1)==-1:
-        CatWordDict[cat]={}
-        CatWordCountDict[cat]=0
+    CatWordDict[cat] = CatWordDict.get(cat,{})
+    CatWordCountDict[cat] = CatWordCountDict.get(cat,0)
+    
  ##Update the dictionary - 2 possible ways
     ##A) loop over the set of words and update dictionary with log value
         ##Complexity- n(set)*n(count operation) = O(n^2)
@@ -159,7 +142,7 @@ for fileName in testset:
             minCategory=cat
             minimumNegLogProb=negLogProb
 
-    liResults.append((fileName,minCategory,reuters.categories(fileids=fileName)[0]))
+    liResults.append((fileName,minCategory,reuters_f2c(fileName)))
 
 ###--------------------DEBUG STATEMENTS----------------------
 #for t in liResults:
