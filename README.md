@@ -5,6 +5,58 @@ Document Classification in python with some help from the Natural Language Toolk
 
 Note to the reader: The source code files are described in the order of most simple to most advanced as you navigate from top to bottom.
 
+Helper Function Files:
+
+FilenameToCat.py
+
+It gets the category of its argument filename string. While this is easily done by a nltk function call, it is important to explicitly not invoke nltk, in the Major Files, to increase portability. And this makes the code in the Major Files reusable when non-nltk corpora are used.
+
+Tokenizer.py
+
+It extracts tokens from the file specified by its argument filename.  It uses nltk to get the raw text and then uses regular expression from the 're' package in python to tokenize the text. It then removes stopwords, non-alpha-numeric words and very small words. Presently, there is one tokenizer function for every corpus. As of now, stemming is not used. 
+
+Evaluation.py
+
+It evaluates the performance of the classifier. 
+
+For multi-class classification, the respective function reports the following measures:
+a) Macro-Precision,
+b) Micro-Precision,
+c) Macro-Recall,
+d) Micro-Recall,
+e) Macro-F1-Measure
+f) Micro-F1-Measure and 
+g) Fraction of Mis-Classified Documents
+
+For binary classification, the respective function reports the following measures:
+a) Precision,
+b) Recall,
+c) F1-Measure and 
+d) Fraction of Mis-Classified Documents
+
+Sources:
+
+http://rushdishams.blogspot.com/2011/08/micro-and-macro-average-of-precision.html
+
+http://en.wikipedia.org/wiki/F1_score
+
+http://en.wikipedia.org/wiki/Precision_and_recall
+
+
+Feature_Selector.py
+
+It selects the suitable word features for Naive Bayes classification. This is an important step for Bernoulli Naive Bayes, whose accuracy is often low without feature selection.
+
+The only one used till now is Mutual Information 
+
+http://nlp.stanford.edu/IR-book/pdf/13bayes.pdf Page-20
+
+More will come soon.
+
+
+
+Major Files:
+
  NaiveBayes.py
  
  The ' NaiveBayes.py' implements a Multinomial Naive Bayes Classifier without using feature selection and without using 
@@ -35,25 +87,9 @@ b) Splitting the dataset into training set and test set.
 
 c) Tokenization: Splitting the raw text from each document into tokens, for documents in both training dataset and test dataset.
 
-The final result is reported as the following parameters:
-
-a) Macro-Precision,
-b) Micro-Precision,
-c) Macro-Recall,
-d) Micro-Recall,
-e) Macro-F1-Measure
-f) Micro-F1-Measure and 
-g) Fraction of Mis-Classified Documents
+The final result is reported using the evaluation_multi_class() function in Evaluation.py.
 
 The time taken to train the classifier and the time taken to run the classifier on the test set are also reported.
-
-Sources:
-
-http://rushdishams.blogspot.com/2011/08/micro-and-macro-average-of-precision.html
-
-http://en.wikipedia.org/wiki/F1_score
-
-http://en.wikipedia.org/wiki/Precision_and_recall
 
 
 NaiveBayes_nltk_movie_reviews.py
