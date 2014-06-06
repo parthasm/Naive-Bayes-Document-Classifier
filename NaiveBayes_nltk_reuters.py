@@ -1,9 +1,8 @@
 from __future__ import division
 from nltk.corpus import reuters
+from FilenameToCat import reuters_f2c
 from Tokenizer import get_list_tokens_nltk_reuters
 from Evaluation import evaluation_multi_class
-#from os import listdir
-from os.path import isfile, join
 from math import log
 import time
 
@@ -18,8 +17,8 @@ def get_testset_trainset():
             CatNumDocs[cat]=len(li)
             li.extend(liTe)
             categoriesFilenameDict[cat]=li
-    return [[ f for f in trainset if reuters.categories(fileids=f)[0] in categoriesFilenameDict],
-            [ f for f in testset if reuters.categories(fileids=f)[0] in categoriesFilenameDict]]
+    return [[ f for f in trainset if reuters_f2c(f) in categoriesFilenameDict],
+            [ f for f in testset if reuters_f2c(f) in categoriesFilenameDict]]
 
 
 start_time = time.time()
@@ -63,10 +62,10 @@ for fileName in trainset:
 ##7) Check if category exists in dictionary, if not, create an empty dictionary,
     #and put word count as zero
     #and then insert words into the category's dictionary in both cases and update the word count
-    cat = reuters.categories(fileids=fileName)[0]
-    if CatWordDict.get(cat, -1)==-1:
-        CatWordDict[cat]={}
-        CatWordCountDict[cat]=0
+    cat = reuters_f2c(fileName)
+    CatWordDict[cat]=CatWordDict.get(cat,{})
+    CatWordCountDict[cat]=CatWordCountDict.get(cat,0)
+    
  ##Update the dictionary - 2 possible ways
     ##A) loop over the set of words and update dictionary with log value
         ##Complexity- n(set)*n(count operation) = O(n^2)
@@ -125,7 +124,7 @@ for fileName in testset:
             minCategory=cat
             minimumNegLogProb=negLogProb
 
-    liResults.append((fileName,minCategory,reuters.categories(fileids=fileName)[0]))
+    liResults.append((fileName,minCategory,reuters_f2c(fileName)))
 
 ###--------------------DEBUG STATEMENTS----------------------
 #for t in liResults:
