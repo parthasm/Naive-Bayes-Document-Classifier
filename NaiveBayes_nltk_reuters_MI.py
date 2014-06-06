@@ -4,7 +4,6 @@ from FilenameToCat import reuters_f2c
 from Tokenizer import get_list_tokens_nltk_reuters
 from Feature_Selector import mutual_information
 from Evaluation import evaluation_multi_class
-import operator
 from math import log
 import time
 
