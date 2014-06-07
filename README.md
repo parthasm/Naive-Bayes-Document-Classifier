@@ -1,21 +1,21 @@
 Naive-Bayes-Document-Classifier
 ===============================
 
-Document Classification in python with some help from the Natural Language Toolkit, using a Multinomial Naive Bayes Classifier and experimenting with various feature selectors, till now only Mutual Information.
+Document Classification in python with some help from the Natural Language Toolkit, using Multinomial and Bernoulli Naive Bayes Classifiers and experimenting with various feature selectors, till now only Mutual Information.
 
-Note to the reader: The source code files are described in the order of most simple to most advanced as you navigate from top to bottom.
+Note to the reader: The source code files are described roughly in the order of most simple to most advanced as you navigate from top to bottom.
 
 Helper Function Files:
 
-FilenameToCat.py
+##FilenameToCat.py
 
 It gets the category of its argument filename string. While this is easily done by a nltk function call, it is important to explicitly not invoke nltk, in the Major Files, to increase portability. And this makes the code in the Major Files reusable when non-nltk corpora are used.
 
-Tokenizer.py
+##Tokenizer.py
 
 It extracts tokens from the file specified by its argument filename.  It uses nltk to get the raw text and then uses regular expression from the 're' package in python to tokenize the text. It then removes stopwords, non-alpha-numeric words and very small words. Presently, there is one tokenizer function for every corpus. As of now, stemming is not used. 
 
-Evaluation.py
+##Evaluation.py
 
 It evaluates the performance of the classifier. 
 
@@ -43,7 +43,7 @@ http://en.wikipedia.org/wiki/F1_score
 http://en.wikipedia.org/wiki/Precision_and_recall
 
 
-Feature_Selector.py
+##Feature_Selector.py
 
 It selects the suitable word features for Naive Bayes classification. This is an important step for Bernoulli Naive Bayes, whose accuracy is often low without feature selection.
 
@@ -57,7 +57,7 @@ More will come soon.
 
 Major Files:
 
- NaiveBayes.py
+##Multinomial_NB.py
  
  The ' NaiveBayes.py' implements a Multinomial Naive Bayes Classifier without using feature selection and without using 
  any kind of processing help from the Natural Language Toolkit (nltk). 
@@ -92,23 +92,39 @@ The final result is reported using the evaluation_multi_class() function in Eval
 The time taken to train the classifier and the time taken to run the classifier on the test set are also reported.
 
 
-NaiveBayes_nltk_movie_reviews.py
+##Multinomial_NB_nltk_mr.py
 
 Here, nltk is used for one of the processing tasks (a - Getting the category to document mapping). The corpus is the movie_reviews corpus provided with nltk. 
 
 
-NaiveBayes_nltk_reuters.py
+##Bernoulli_NB_nltk_reuters.py
+
+Here, the simpler and weaker classifier, the Bernoulli Naive Bayes is used on the reuters nltk corpus. Its other characteritics are same as the code file below.
+
+##Multinomial_NB_nltk_reuters.py
 
 Here, nltk is used for processing tasks a) & b). The corpus is the reuters corpus provided with nltk. Only the documents with one tag are considered. This restricts the task to single-category classification for each document.
 
 Out of these documents, only the categories with more than 20 documents in the training set and more than 20 documents in the test set are considered. This reduces the skewness of the dataset. 
 
 
-NaiveBayes_nltk_reuters_MI.py
+##Multinomial_NB_nltk_reuters_MI.py
 
 Same as previous, except mutual information is used for feature selection. The number of features per category is restricted to 500. This results in slight degradation of performance and slightly more time to train the classifier but less time to run the classifer over the test set.
 
 http://nlp.stanford.edu/IR-book/pdf/13bayes.pdf Page-20
 
-Note: I have experimented and found that the best results are obtained with a slightly different formula. 
+Note: 
+
+a) There is no improvement in performance - either in accuracy or time taken since Multinomial Naive Bayes without feature selection is already a strong and simple classifier respectively.
+
+b) I have experimented and found that the best results are obtained with a slightly different formula. 
 Refer the code for my change. The original formula seems to be more useful if there are only 2 categories but fails for more than 2 categories. 
+
+
+
+##Bernoulli_NB_nltk_reuters_MI.py
+
+Same as Bernoulli_NB_nltk_reuters.py, except mutual information is used for feature selection. The number of features per category is restricted to 500.This results in significant improvment in performance(from 27% misclassification to 12% misclassification) and slightly more time to train the classifier but less time to run the classifer over the test set. This is because Bernoulli Naive Bayes is a weak classifier - hence the scope for improvement with feature selection, but a simple one, so introducing the extra step of feature selection takes away more time than it saves.
+
+
