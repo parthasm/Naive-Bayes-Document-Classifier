@@ -30,7 +30,7 @@ def mutual_information(CatNumDocs,trainset,numTopWords=500):
             #mutual information as the 2 elements of the tuple which will be the only ones considered as features
         ## and a list with all these word features
     WordFeatures={}
-    WordList={}
+    WordList=[]
     for w in WordCatNumDocDict.keys():
         dic = WordCatNumDocDict[w]
         N1x=0
@@ -67,8 +67,8 @@ def mutual_information(CatNumDocs,trainset,numTopWords=500):
         #print "\n"
         WordFeatures[cat]=dict(WordFeatures[cat])
         for w in WordFeatures[cat]:
-            WordList[w]=True
+            WordList.append(w)
     li =[]
     li.append(WordFeatures)
-    li.append(WordList)
+    li.append(set(WordList))
     return li
