@@ -117,7 +117,7 @@ for fileName in testset:
     minimumNegLogProb=1000000000
     minCategory=''
     listWords = get_list_tokens_nltk_reuters(fileName)
-    listWords = [w for w in listWords if WordList.get(w,False)]
+    listWords = [w for w in listWords if w in WordList]
     
     ###--------------------DEBUG STATEMENTS----------------------
     #if fileName=='test/15024':
