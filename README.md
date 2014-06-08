@@ -107,7 +107,7 @@ http://en.wikipedia.org/wiki/Naive_Bayes_classifier#Bernoulli_naive_Bayes
 
 http://nlp.stanford.edu/IR-book/html/htmledition/the-bernoulli-model-1.html
 
-Also, in Bernoulli Naive Bayes, all the words in the vocabulary contribute to the score for each category for a document, unlike Multinomial Naive Bayes where only the words in the document contribute to the score for each category. Therefore, Bernoulli Naive Bayes without feature Selection takes a lot of time, to traverse the entire vocabulary for every document in the testset. 
+Also, in Bernoulli Naive Bayes, all the words in the vocabulary contribute to the score for each category for a document, unlike Multinomial Naive Bayes where only the words in the document contribute to the score for each category. Therefore, Bernoulli Naive Bayes without feature Selection takes a lot of time, to traverse the entire vocabulary of the corpus for every document in the testset. 
 
 ##Multinomial_NB_nltk_reuters.py
 
