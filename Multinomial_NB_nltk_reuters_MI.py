@@ -48,7 +48,7 @@ trainset = li[0]
 #for f in testset:
  #   print f    
 ###--------------------DEBUG STATEMENTS----------------------
-li = mutual_information(CatNumDocs,trainset)
+li = mutual_information(CatNumDocs,trainset,'reuters')
 WordFeatures = li[0]
 WordList = li[1]
     
