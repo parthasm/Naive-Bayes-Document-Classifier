@@ -31,6 +31,7 @@ def evaluation_multi_class(liResults,listCats):
         b = CatResultsDict[cat][1]
         c = CatResultsDict[cat][2]
         d = CatResultsDict[cat][3]
+        print cat, a, b, c, d
         totPrec+=a/(a+b)##Precision for this category
         totRec+=a/(a+c)##Recall for this category
         A+=a
@@ -63,9 +64,7 @@ def evaluation_multi_class(liResults,listCats):
     
 
 
-    numErrors = sum(t[1]!=t[2] for t in liResults)
-    print "Fraction of mis-classifications" , numErrors/len(liResults)
-
+    evaluation_fraction_misclass(liResults)
 
 def evaluation_binary(liResults,listCats):
       
@@ -101,5 +100,8 @@ def evaluation_binary(liResults,listCats):
 #print (a+b+c+d)==len(testset)
 ###--------------------DEBUG STATEMENTS----------------------
 
+    evaluation_fraction_misclass(liResults)
+    
+def evaluation_fraction_misclass(liResults):
     numErrors = sum(t[1]!=t[2] for t in liResults)
     print "Fraction of Errors = ", numErrors/len(liResults)
