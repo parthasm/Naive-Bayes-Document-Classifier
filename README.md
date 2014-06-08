@@ -101,6 +101,14 @@ Here, nltk is used for one of the processing tasks (a - Getting the category to 
 
 Here, the simpler and weaker classifier, the Bernoulli Naive Bayes is used on the reuters nltk corpus. Its other characteritics are same as the code file below.
 
+Bernoulli Naive Bayes: 
+
+http://en.wikipedia.org/wiki/Naive_Bayes_classifier#Bernoulli_naive_Bayes
+
+http://nlp.stanford.edu/IR-book/html/htmledition/the-bernoulli-model-1.html
+
+Also, in Bernoulli Naive Bayes, all the words in the vocabulary contribute to the score for each category for a document, unlike Multinomial Naive Bayes where only the words in the document contribute to the score for each category. Therefore, Bernoulli Naive Bayes without feature Selection takes a lot of time, to traverse the entire vocabulary for every document in the testset. 
+
 ##Multinomial_NB_nltk_reuters.py
 
 Here, nltk is used for processing tasks a) & b). The corpus is the reuters corpus provided with nltk. Only the documents with one tag are considered. This restricts the task to single-category classification for each document.
@@ -125,6 +133,6 @@ Refer the code for my change. The original formula seems to be more useful if th
 
 ##Bernoulli_NB_nltk_reuters_MI.py
 
-Same as Bernoulli_NB_nltk_reuters.py, except mutual information is used for feature selection. The number of features per category is restricted to 500.This results in significant improvment in performance(from 27% misclassification to 12% misclassification) and slightly more time to train the classifier but less time to run the classifer over the test set. This is because Bernoulli Naive Bayes is a weak classifier - hence the scope for improvement with feature selection, but a simple one, so introducing the extra step of feature selection takes away more time than it saves.
+Same as Bernoulli_NB_nltk_reuters.py, except mutual information is used for feature selection. The number of features per category is restricted to 500.This results in significant improvment in performance(from 22% misclassification to 11% misclassification) and approximately 50% more time to train the classifier but 97% less time to run the classifer over the test set. This is because Bernoulli Naive Bayes is a weak classifier - hence the scope for improvement with feature selection. Since the time-consuming step is traversing the entire vocabulary for every test document, on reducing the vocabulary by feature selection, the time taken to run the classifier is drastically reduced.
 
 
