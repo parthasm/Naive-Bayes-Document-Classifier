@@ -2,7 +2,7 @@ from __future__ import division
 from nltk.corpus import reuters
 from FilenameToCat import reuters_f2c
 from Tokenizer import get_list_tokens_nltk_reuters
-from Evaluation import evaluation_multi_class
+from Evaluation import evaluation_fraction_misclass
 from math import log
 import time
 
@@ -52,7 +52,11 @@ for fileName in trainset:
        WordCatNumDocDict[w][cat]=WordCatNumDocDict[w].get(cat,0)
        WordCatNumDocDict[w][cat]+=1
 
-
+for w in WordCatNumDocDict:
+    for cat in CatNumDocs:
+        Nct = WordCatNumDocDict[w].get(cat,0)
+        ratio = (Nct+1)/(CatNumDocs[cat]+2)
+        WordCatNumDocDict[w][cat]=ratio
 
 ####Congratulations! the Classifier is trained, now it is time to run the Multinomial Naive Bayes Classifier on the test dataset
 print "The Classifier is trained and it took"
@@ -65,25 +69,24 @@ liResults=[]
 for fileName in testset:
     minimumNegLogProb=1000000000
     minCategory=''
-    listWords = get_list_tokens_nltk_reuters(fileName)
+    setListWords = set(get_list_tokens_nltk_reuters(fileName))
 
 ##6) Get the probability for each category,
     #using the CatNumDocs dictionary to wade through the categories
     for cat in  CatNumDocs:
         negLogProb=-log(CatNumDocs[cat]/len(trainset))
-        for w in set(listWords):
-            di = WordCatNumDocDict.get(w,{})
-            Nct = di.get(cat,0)
-            ratio = (Nct+1)/(CatNumDocs[cat]+2)
-            negLogProb-=log(ratio)           
-                         
+        for w in WordCatNumDocDict:
+            if w in setListWords:
+                negLogProb-=log(WordCatNumDocDict[w][cat])
+            else:
+                negLogProb-=log(1-WordCatNumDocDict[w][cat])
         if minimumNegLogProb>negLogProb:
             minCategory=cat
             minimumNegLogProb=negLogProb
 
     liResults.append((fileName,minCategory,reuters_f2c(fileName)))
 
-evaluation_multi_class(liResults,CatNumDocs.keys())
+evaluation_fraction_misclass(liResults)
 
 print "The time taken by the trained classifier to assign labels"
 print time.time() - start_time, "seconds"
