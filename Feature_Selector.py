@@ -1,9 +1,9 @@
 from __future__ import division
-from FilenameToCat import reuters_f2c
-from Tokenizer import get_list_tokens_nltk_reuters
+import FilenameToCat
+import Tokenizer
 import operator
 from math import log
-def mutual_information(CatNumDocs,trainset,numTopWords=500):
+def mutual_information(CatNumDocs,trainset,corpus,numTopWords=500):
     ##3) Information Theoritic Mutual Information - Feature Selection - including only those words as features which have the highest
      ##mutual information for a category - selecting top x words for a category
     ##A)Create a dictionary with a word as the key and a dictionary as the value
@@ -16,8 +16,12 @@ def mutual_information(CatNumDocs,trainset,numTopWords=500):
     ##C) Parse the string to get individual words
 
     for fileName in trainset:
-        listWords = get_list_tokens_nltk_reuters(fileName)
-        cat = reuters_f2c(fileName)
+        if corpus=='reuters':
+            listWords = Tokenizer.get_list_tokens_nltk_reuters(fileName)
+            cat = FilenameToCat.reuters_f2c(fileName)
+        elif corpus=='movie_reviews':
+            listWords = Tokenizer.get_list_tokens_nltk_mr(fileName)
+            cat = FilenameToCat.movie_reviews_f2c(fileName)
     
     ##D) Update the dictionary
         for w in set(listWords):
