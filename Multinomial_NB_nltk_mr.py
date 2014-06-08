@@ -1,6 +1,6 @@
 from __future__ import division
 from nltk.corpus import movie_reviews as mr
-from FilenameToCat import movie_Reviews_f2c
+from FilenameToCat import movie_reviews_f2c
 from Evaluation import evaluation_binary
 from Tokenizer import get_list_tokens_nltk_mr
 from math import log
@@ -73,7 +73,7 @@ for fileName in trainset:
 ##7) Check if category exists in dictionary, if not, create an empty dictionary,
     #and put word count as zero
     #and then insert words into the category's dictionary in both cases and update the word count
-    cat = movie_Reviews_f2c(fileName)
+    cat = movie_reviews_f2c(fileName)
     CatWordDict[cat] = CatWordDict.get(cat,{})
     CatWordCountDict[cat] = CatWordCountDict.get(cat,0)
     
@@ -126,7 +126,7 @@ for fileName in testset:
             minCategory=cat
             minimumNegLogProb=negLogProb
 
-    liResults.append((fileName,minCategory,movie_Reviews_f2c(fileName)))
+    liResults.append((fileName,minCategory,movie_reviews_f2c(fileName)))
 
 ###--------------------DEBUG STATEMENTS----------------------
 #for t in liResults:
