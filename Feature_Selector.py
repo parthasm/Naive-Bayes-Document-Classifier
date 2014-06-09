@@ -3,8 +3,8 @@ import FilenameToCat
 import Tokenizer
 import operator
 from math import log
-def mutual_information(CatNumDocs,trainset,corpus,numTopWords=500):
-    ##3) Information Theoritic Mutual Information - Feature Selection - including only those words as features which have the highest
+def mutual_information(trainset,corpus,numTopWords=500):
+    ##3) Mutual Information - Feature Selection - including only those words as features which have the highest
      ##mutual information for a category - selecting top x words for a category
     ##A)Create a dictionary with a word as the key and a dictionary as the value
      ## in the dictionary the category as key and number of documents in that category where it occurs as value
@@ -42,19 +42,8 @@ def mutual_information(CatNumDocs,trainset,corpus,numTopWords=500):
             N1x+=dic[cat] ## number of documents in the training set where the word occurs
         for cat in dic.keys():
             WordFeatures[cat]=WordFeatures.get(cat,[])
-            Nx1=CatNumDocs[cat] ## number of documents in the training set of the particular category
             N11=dic[cat]
-            N01=Nx1-N11 ## num documents of the category where the word does not occur in trainset
-            N10=N1x-N11 ## num documents of other categories where the word occurs
-            N00 = N - (N01+N10+N11)
             MI=(N11/N)*log((N*N11)/(N1x*N1x))/log(2)
-            if N01!=0:
-                MI-=(N01/N)*log((N*N01)/((N-N1x)*N1x))/log(2)
-            if N10!=0:
-                MI-=(N10/N)*log((N*N10)/((N-N1x)*N1x))/log(2)
-            #if N00!=0:
-         #   MI+=(N00/N)*log((N*N00)/((N-N1x)*(N-N1x)))/log(2)
-
             if len(WordFeatures[cat])<numTopWords:
                 WordFeatures[cat].append((w,MI))
                 if len(WordFeatures[cat])==numTopWords:
@@ -72,7 +61,66 @@ def mutual_information(CatNumDocs,trainset,corpus,numTopWords=500):
         WordFeatures[cat]=dict(WordFeatures[cat])
         for w in WordFeatures[cat]:
             WordList.append(w)
-    li =[]
-    li.append(WordFeatures)
-    li.append(set(WordList))
-    return li
+    
+    return [WordFeatures,set(WordList) ]
+
+
+
+def gini(trainset,corpus,numTopWords=500):
+    #The conditional probability of a word given a category is found by a technique very similar to
+    #Multinomial Naive Bayes
+    CatWordDict={}
+    CatWordCountDict={}
+    #val = my_dict.get(key, mydefaultval)
+    WordList=[]
+    WordFeatures={}
+    for fileName in trainset:
+        if corpus=='reuters':
+            listWords = Tokenizer.get_list_tokens_nltk_reuters(fileName)
+            cat = FilenameToCat.reuters_f2c(fileName)
+        elif corpus=='movie_reviews':
+            listWords = Tokenizer.get_list_tokens_nltk_mr(fileName)
+            cat = FilenameToCat.movie_reviews_f2c(fileName)
+        
+        CatWordDict[cat]=CatWordDict.get(cat,{})
+        CatWordCountDict[cat]=CatWordCountDict.get(cat,0)
+        CatWordCountDict[cat]+=len(listWords)
+
+        for w in listWords:
+            CatWordDict[cat][w] = CatWordDict[cat].get(w,0)
+            CatWordDict[cat][w]+= 1
+        
+    vocabLength=0            
+    for dic in CatWordDict.values():
+        vocabLength+=len(dic)
+
+
+    for cat in CatWordDict:
+        countCat = CatWordCountDict[cat]
+        WordFeatures[cat]=WordFeatures.get(cat,[])
+        for w in CatWordDict[cat]:
+            cond_prob=(CatWordDict[cat][w]+1)/(countCat+vocabLength)
+            sumCP=cond_prob
+            for cate in CatWordDict:
+                if cate!=cat:
+                    sumCP+=((CatWordDict[cate].get(w,0)+1)/(CatWordCountDict[cate]+vocabLength))
+
+            gini_coef = cond_prob/sumCP
+            if len(WordFeatures[cat])<numTopWords:
+                WordFeatures[cat].append((w,gini_coef))
+                if len(WordFeatures[cat])==numTopWords:
+                    WordFeatures[cat].sort(key=operator.itemgetter(1),reverse=True)                
+            else:
+                if WordFeatures[cat][numTopWords-1][1]<gini_coef:
+                    WordFeatures[cat][numTopWords-1]= (w,gini_coef)
+                    WordFeatures[cat].sort(key=operator.itemgetter(1),reverse=True)  
+
+    for cat in WordFeatures.keys():
+        #print cat
+        #print WordFeatures[cat]
+        #print "\n"
+        WordFeatures[cat]=dict(WordFeatures[cat])
+        for w in WordFeatures[cat]:
+            WordList.append(w)
+    
+    return [WordFeatures,set(WordList) ]
