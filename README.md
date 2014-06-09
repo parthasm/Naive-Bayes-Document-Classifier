@@ -42,18 +42,23 @@ http://en.wikipedia.org/wiki/F1_score
 
 http://en.wikipedia.org/wiki/Precision_and_recall
 
+If precision or recall are not defined, the evaluation_fraction_misclass() function reports only the ratio of number of misclassifications and number of documents in the testset , that is, fraction of misclassifications.
+
 
 ##Feature_Selector.py
 
 It selects the suitable word features for Naive Bayes classification. This is an important step for Bernoulli Naive Bayes, whose accuracy is often low without feature selection.
 
-The only one used till now is Mutual Information 
+The first used is Mutual Information 
 
 http://nlp.stanford.edu/IR-book/pdf/13bayes.pdf Page-20
 
-More will come soon.
+The 2nd one is Gini Coefficient. The concept is used is from this paper
 
+http://jmlr.org/proceedings/papers/v10/sanasam10a/sanasam10a.pdf
 
+The concept used is from the paper "Feature Selection for Text Classification Based on
+Gini Coefficient of Inequality" by Sanasam Ranbir Singh, Hema A. Murthy, Timothy A. Gonsalves. The basic concept is that the high conditional probability of a word given a category normalized by the sum of conditional probabilities of the word in all categories indicate strong association of the word with the category. Thus the word is a good feature for the category.
 
 Major Files:
 
@@ -130,9 +135,15 @@ b) I have experimented and found that the best results are obtained with a sligh
 Refer the code for my change. The original formula seems to be more useful if there are only 2 categories but fails for more than 2 categories. 
 
 
+##Multinomial_NB_nltk_reuters_gini.py
+
+Same as previous, except instead of mutual information , gini coefficient is used as feature selector. The concept is described before under Feature_Selector.py. The performance is slightly worse than mutual information(9.98% versus 7.89%) for 500 features.
 
 ##Bernoulli_NB_nltk_reuters_MI.py
 
 Same as Bernoulli_NB_nltk_reuters.py, except mutual information is used for feature selection. The number of features per category is restricted to 500.This results in significant improvment in performance(from 22% misclassification to 11% misclassification) and approximately 50% more time to train the classifier but 97% less time to run the classifer over the test set. This is because Bernoulli Naive Bayes is a weak classifier - hence the scope for improvement with feature selection. Since the time-consuming step is traversing the entire vocabulary for every test document, on reducing the vocabulary by feature selection, the time taken to run the classifier is drastically reduced.
 
 
+##Bernoulli_NB_nltk_reuters_gini.py
+
+Same as previous, except instead of mutual information , gini coefficient is used as feature selector. The concept is described before under Feature_Selector.py. The performance is slightly worse than mutual information(11.09% versus 9.76%) for 500 features. Again, time required is drastically used, compared to bare Bernoulli, without feature selection.
