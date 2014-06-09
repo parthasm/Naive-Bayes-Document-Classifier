@@ -40,7 +40,7 @@ trainset = li[0]
 
 #2a) Applying Feature Selection
 
-li = mutual_information(CatNumDocs,trainset,'reuters')
+li = mutual_information(trainset,'reuters')
 WordFeatures = li[0]
 WordList = li[1]
 
