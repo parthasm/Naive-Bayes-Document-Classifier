@@ -1,7 +1,7 @@
 Naive-Bayes-Document-Classifier
 ===============================
 
-Document Classification in python with some help from the Natural Language Toolkit, using Multinomial and Bernoulli Naive Bayes Classifiers and experimenting with various feature selectors, till now only Mutual Information.
+Document Classification in python with some help from the Natural Language Toolkit, using Multinomial and Bernoulli Naive Bayes Classifiers and experimenting with various feature selectors, namely Mutual Information and Gini Coefficient.
 
 Note to the reader: The source code files are described roughly in the order of most simple to most advanced as you navigate from top to bottom.
 
