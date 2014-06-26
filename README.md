@@ -146,4 +146,4 @@ Same as Bernoulli_NB_nltk_reuters.py, except mutual information is used for feat
 
 ##Bernoulli_NB_nltk_reuters_gini.py
 
-Same as previous, except instead of mutual information , gini coefficient is used as feature selector. The concept is described before under Feature_Selector.py. The performance is slightly worse than mutual information(11.09% versus 9.76%) for 500 features. Again, time required is drastically used, compared to bare Bernoulli, without feature selection.
+Same as previous, except instead of mutual information , gini coefficient is used as feature selector. The concept is described before under Feature_Selector.py. The performance is slightly worse than mutual information(11.09% versus 9.76%) for 500 features. Again, time required is drastically reduced, compared to bare Bernoulli, without feature selection.
