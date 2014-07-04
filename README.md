@@ -141,7 +141,7 @@ Same as previous, except instead of mutual information , gini coefficient is use
 
 ##Bernoulli_NB_nltk_reuters_MI.py
 
-Same as Bernoulli_NB_nltk_reuters.py, except mutual information is used for feature selection. The number of features per category is restricted to 500.This results in significant improvment in performance(from 22% misclassification to 11% misclassification) and approximately 50% more time to train the classifier but 97% less time to run the classifer over the test set. This is because Bernoulli Naive Bayes is a weak classifier - hence the scope for improvement with feature selection. Since the time-consuming step is traversing the entire vocabulary for every test document, on reducing the vocabulary by feature selection, the time taken to run the classifier is drastically reduced.
+Same as Bernoulli_NB_nltk_reuters.py, except mutual information is used for feature selection. The number of features per category is restricted to 500.This results in significant improvment in performance(from 22% misclassification to 10% misclassification) and approximately 50% more time to train the classifier but 97% less time to run the classifer over the test set. This is because Bernoulli Naive Bayes is a weak classifier - hence the scope for improvement with feature selection. Since the time-consuming step is traversing the entire vocabulary for every test document, on reducing the vocabulary by feature selection, the time taken to run the classifier is drastically reduced.
 
 
 ##Bernoulli_NB_nltk_reuters_gini.py
