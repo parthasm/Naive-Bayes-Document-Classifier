@@ -1,6 +1,6 @@
 from __future__ import division
-import FilenameToCat
-import Tokenizer
+from FilenameToCat import f2c
+from Tokenizer import get_list_tokens_nltk
 import operator
 from math import log
 def mutual_information(trainset,corpus,numTopWords=500):
@@ -16,12 +16,12 @@ def mutual_information(trainset,corpus,numTopWords=500):
     ##C) Parse the string to get individual words
 
     for fileName in trainset:
-        if corpus=='reuters':
-            listWords = Tokenizer.get_list_tokens_nltk_reuters(fileName)
-            cat = FilenameToCat.reuters_f2c(fileName)
-        elif corpus=='movie_reviews':
-            listWords = Tokenizer.get_list_tokens_nltk_mr(fileName)
-            cat = FilenameToCat.movie_reviews_f2c(fileName)
+        if corpus=='movie_reviews':
+            listWords = get_list_tokens_nltk('mr',fileName)
+            cat = f2c('mr',fileName)
+        else:
+            listWords = get_list_tokens_nltk('reuters',fileName)
+            cat = f2c('reuters',fileName)
     
     ##D) Update the dictionary
         for w in set(listWords):
@@ -75,12 +75,12 @@ def gini(trainset,corpus,numTopWords=500):
     WordList=[]
     WordFeatures={}
     for fileName in trainset:
-        if corpus=='reuters':
-            listWords = Tokenizer.get_list_tokens_nltk_reuters(fileName)
-            cat = FilenameToCat.reuters_f2c(fileName)
-        elif corpus=='movie_reviews':
-            listWords = Tokenizer.get_list_tokens_nltk_mr(fileName)
-            cat = FilenameToCat.movie_reviews_f2c(fileName)
+        if corpus=='movie_reviews':
+            listWords = get_list_tokens_nltk('mr',fileName)
+            cat = f2c('mr',fileName)
+        else:
+            listWords = get_list_tokens_nltk('reuters',fileName)
+            cat = f2c('reuters',fileName)
         
         CatWordDict[cat]=CatWordDict.get(cat,{})
         CatWordCountDict[cat]=CatWordCountDict.get(cat,0)
