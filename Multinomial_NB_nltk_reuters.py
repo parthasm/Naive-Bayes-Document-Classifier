@@ -1,7 +1,7 @@
 from __future__ import division
 from nltk.corpus import reuters
-from FilenameToCat import reuters_f2c
-from Tokenizer import get_list_tokens_nltk_reuters
+from FilenameToCat import f2c
+from Tokenizer import get_list_tokens_nltk
 from Evaluation import evaluation_multi_class
 from math import log
 import time
@@ -17,8 +17,8 @@ def get_testset_trainset():
             CatNumDocs[cat]=len(li)
             li.extend(liTe)
             categoriesFilenameDict[cat]=li
-    return [[ f for f in trainset if reuters_f2c(f) in categoriesFilenameDict],
-            [ f for f in testset if reuters_f2c(f) in categoriesFilenameDict]]
+    return [[ f for f in trainset if f2c('reuters',f) in categoriesFilenameDict],
+            [ f for f in testset if f2c('reuters',f) in categoriesFilenameDict]]
 
 
 start_time = time.time()
@@ -56,13 +56,13 @@ CatWordCountDict={}
 ##5&6)Loop through the training set, to get the individual words
 
 for fileName in trainset:
-    listWords = get_list_tokens_nltk_reuters(fileName)
+    listWords = get_list_tokens_nltk('reuters',fileName)
 
 
 ##7) Check if category exists in dictionary, if not, create an empty dictionary,
     #and put word count as zero
     #and then insert words into the category's dictionary in both cases and update the word count
-    cat = reuters_f2c(fileName)
+    cat = f2c('reuters',fileName)
     CatWordDict[cat]=CatWordDict.get(cat,{})
     CatWordCountDict[cat]=CatWordCountDict.get(cat,0)
     
@@ -104,7 +104,7 @@ liResults=[]
 for fileName in testset:
     minimumNegLogProb=1000000000
     minCategory=''
-    listWords = get_list_tokens_nltk_reuters(fileName)
+    listWords = get_list_tokens_nltk('reuters',fileName)
 
 ##11) Get the probability for each category,
     #can use any of the created dictionaries to wade through the categories
@@ -124,7 +124,7 @@ for fileName in testset:
             minCategory=cat
             minimumNegLogProb=negLogProb
 
-    liResults.append((fileName,minCategory,reuters_f2c(fileName)))
+    liResults.append((fileName,minCategory,f2c('reuters',fileName)))
 
 ###--------------------DEBUG STATEMENTS----------------------
 #for t in liResults:
