@@ -1,8 +1,8 @@
 from __future__ import division
 from nltk.corpus import movie_reviews as mr
-from FilenameToCat import movie_reviews_f2c
+from FilenameToCat import f2c
 from Evaluation import evaluation_binary
-from Tokenizer import get_list_tokens_nltk_mr
+from Tokenizer import get_list_tokens_nltk
 from math import log
 import time
 
@@ -67,13 +67,13 @@ CatWordCountDict={}
 ##5)Loop through the training set, to get the entire text from  each file
 ##6) Parse the string to get individual words
 for fileName in trainset:
-    listWords = get_list_tokens_nltk_mr(fileName)
+    listWords = get_list_tokens_nltk('mr',fileName)
     
 
 ##7) Check if category exists in dictionary, if not, create an empty dictionary,
     #and put word count as zero
     #and then insert words into the category's dictionary in both cases and update the word count
-    cat = movie_reviews_f2c(fileName)
+    cat = f2c('mr',fileName)
     CatWordDict[cat] = CatWordDict.get(cat,{})
     CatWordCountDict[cat] = CatWordCountDict.get(cat,0)
     
@@ -106,7 +106,7 @@ liResults=[]
 for fileName in testset:
     minimumNegLogProb=1000000000
     minCategory=''
-    listWords = get_list_tokens_nltk_mr(fileName)
+    listWords = get_list_tokens_nltk('mr',fileName)
 
 
     
@@ -126,7 +126,7 @@ for fileName in testset:
             minCategory=cat
             minimumNegLogProb=negLogProb
 
-    liResults.append((fileName,minCategory,movie_reviews_f2c(fileName)))
+    liResults.append((fileName,minCategory,f2c('mr',fileName)))
 
 ###--------------------DEBUG STATEMENTS----------------------
 #for t in liResults:
