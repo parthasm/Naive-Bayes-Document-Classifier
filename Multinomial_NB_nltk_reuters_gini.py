@@ -1,7 +1,7 @@
 from __future__ import division
 from nltk.corpus import reuters
-from FilenameToCat import reuters_f2c
-from Tokenizer import get_list_tokens_nltk_reuters
+from FilenameToCat import f2c
+from Tokenizer import get_list_tokens_nltk
 from Feature_Selector import gini
 from Evaluation import evaluation_multi_class
 from math import log
@@ -20,8 +20,8 @@ def get_testset_trainset():
             CatNumDocs[cat]=len(li)
             li.extend(liTe)
             categoriesFilenameDict[cat]=li
-    return [[ f for f in trainset if reuters_f2c(f) in categoriesFilenameDict],
-            [ f for f in testset if reuters_f2c(f) in categoriesFilenameDict]]
+    return [[ f for f in trainset if f2c('reuters',f) in categoriesFilenameDict],
+            [ f for f in testset if f2c('reuters',f) in categoriesFilenameDict]]
 
 
 start_time = time.time()
@@ -61,8 +61,8 @@ CatWordCountDict={}
 ##5)Loop through the training set, to get the entire text from  each file
 ##6) Parse the string to get individual words
 for fileName in trainset:
-    listWords = get_list_tokens_nltk_reuters(fileName)
-    cat = reuters_f2c(fileName)
+    listWords = get_list_tokens_nltk('reuters',fileName)
+    cat = f2c('reuters',fileName)
     listWords = [w for w in listWords if WordFeatures[cat].get(w,-100000)!=-100000]
     #!!!!!!!!------Possible Improvement: Stemming--------------#
 
@@ -116,7 +116,7 @@ liResults=[]
 for fileName in testset:
     minimumNegLogProb=1000000000
     minCategory=''
-    listWords = get_list_tokens_nltk_reuters(fileName)
+    listWords = get_list_tokens_nltk('reuters',fileName)
     listWords = [w for w in listWords if w in WordList]
     
     ###--------------------DEBUG STATEMENTS----------------------
@@ -141,7 +141,7 @@ for fileName in testset:
             minCategory=cat
             minimumNegLogProb=negLogProb
 
-    liResults.append((fileName,minCategory,reuters_f2c(fileName)))
+    liResults.append((fileName,minCategory,f2c('reuters',fileName)))
 
 ###--------------------DEBUG STATEMENTS----------------------
 #for t in liResults:
