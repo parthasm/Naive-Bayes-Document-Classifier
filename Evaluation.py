@@ -31,7 +31,7 @@ def evaluation_multi_class(liResults,listCats):
         b = CatResultsDict[cat][1]
         c = CatResultsDict[cat][2]
         d = CatResultsDict[cat][3]
-        print cat, a, b, c, d
+        #print cat, a, b, c, d
         totPrec+=a/(a+b)##Precision for this category
         totRec+=a/(a+c)##Recall for this category
         A+=a
