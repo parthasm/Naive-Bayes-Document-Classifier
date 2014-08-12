@@ -1,9 +1,11 @@
-from nltk.corpus import reuters
-from nltk.corpus import movie_reviews as mr
 
-def reuters_f2c(fileName):
-    return reuters.categories(fileids = fileName)[0]
-
-def movie_reviews_f2c(fileName):
-    return mr.categories(fileids = fileName)[0]
+def f2c(corpus,fileName):
+    if corpus=='mr':
+        from nltk.corpus import movie_reviews as mr
+        return mr.categories(fileids = fileName)[0]    
+    else:
+        from nltk.corpus import reuters
+        return reuters.categories(fileids = fileName)[0]    
+    
+    
 
