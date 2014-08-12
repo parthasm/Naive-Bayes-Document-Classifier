@@ -1,7 +1,7 @@
 from __future__ import division
 from nltk.corpus import reuters
-from FilenameToCat import reuters_f2c
-from Tokenizer import get_list_tokens_nltk_reuters
+from FilenameToCat import f2c
+from Tokenizer import get_list_tokens_nltk
 from Evaluation import evaluation_fraction_misclass
 from math import log
 import time
@@ -21,8 +21,8 @@ def get_testset_trainset():
             CatNumDocs[cat]=len(li)
             li.extend(liTe)
             categoriesFilenameDict[cat]=li
-    return [[ f for f in trainset if reuters_f2c(f) in categoriesFilenameDict],
-            [ f for f in testset if reuters_f2c(f) in categoriesFilenameDict]]
+    return [[ f for f in trainset if f2c('reuters',f) in categoriesFilenameDict],
+            [ f for f in testset if f2c('reuters',f) in categoriesFilenameDict]]
 
 
 start_time = time.time()
@@ -42,10 +42,10 @@ trainset = li[0]
 WordCatNumDocDict={}
 
 #4)Loop through the reuters dataset, to get the entire text from  each file in the training set
-    ## Parse the string to get individual words - done by get_list_tokens_nltk_reuters()
+    ## Parse the string to get individual words - done by get_list_tokens_nltk()
 for fileName in trainset:
-    listWords = get_list_tokens_nltk_reuters(fileName)
-    cat = reuters_f2c(fileName)
+    listWords = get_list_tokens_nltk('reuters',fileName)
+    cat = f2c('reuters',fileName)
 
     for w in set(listWords):
        WordCatNumDocDict[w]=WordCatNumDocDict.get(w,{})
@@ -69,7 +69,7 @@ liResults=[]
 for fileName in testset:
     minimumNegLogProb=1000000000
     minCategory=''
-    setListWords = set(get_list_tokens_nltk_reuters(fileName))
+    setListWords = set(get_list_tokens_nltk('reuters',fileName))
 
 ##6) Get the probability for each category,
     #using the CatNumDocs dictionary to wade through the categories
@@ -84,7 +84,7 @@ for fileName in testset:
             minCategory=cat
             minimumNegLogProb=negLogProb
 
-    liResults.append((fileName,minCategory,reuters_f2c(fileName)))
+    liResults.append((fileName,minCategory,f2c('reuters',fileName)))
 
 evaluation_fraction_misclass(liResults)
 
