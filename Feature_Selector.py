@@ -16,12 +16,8 @@ def mutual_information(trainset,corpus,numTopWords=500):
     ##C) Parse the string to get individual words
 
     for fileName in trainset:
-        if corpus=='movie_reviews':
-            listWords = get_list_tokens_nltk('mr',fileName)
-            cat = f2c('mr',fileName)
-        else:
-            listWords = get_list_tokens_nltk('reuters',fileName)
-            cat = f2c('reuters',fileName)
+        listWords = get_list_tokens_nltk(corpus,fileName)
+        cat = f2c(corpus,fileName)
     
     ##D) Update the dictionary
         for w in set(listWords):
@@ -75,12 +71,8 @@ def gini(trainset,corpus,numTopWords=500):
     WordList=[]
     WordFeatures={}
     for fileName in trainset:
-        if corpus=='movie_reviews':
-            listWords = get_list_tokens_nltk('mr',fileName)
-            cat = f2c('mr',fileName)
-        else:
-            listWords = get_list_tokens_nltk('reuters',fileName)
-            cat = f2c('reuters',fileName)
+        listWords = get_list_tokens_nltk(corpus,fileName)
+        cat = f2c(corpus,fileName)
         
         CatWordDict[cat]=CatWordDict.get(cat,{})
         CatWordCountDict[cat]=CatWordCountDict.get(cat,0)
