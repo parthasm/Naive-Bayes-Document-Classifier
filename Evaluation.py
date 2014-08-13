@@ -19,7 +19,7 @@ def evaluation_multi_class(liResults,listCats):
                     CatResultsDict[cat][2]+=1
                 else:
                     CatResultsDict[cat][3]+=1
-
+    NumCatsUndefinedPrec = 0
     totPrec=0
     totRec=0
     A=0
@@ -32,12 +32,17 @@ def evaluation_multi_class(liResults,listCats):
         c = CatResultsDict[cat][2]
         d = CatResultsDict[cat][3]
         #print cat, a, b, c, d
-        totPrec+=a/(a+b)##Precision for this category
-        totRec+=a/(a+c)##Recall for this category
-        A+=a
-        B+=b
-        C+=c
-        D+=d
+        if a+b==0:
+            print "Precision is undefined for category ", cat
+            print "This category is excluded from precision and recall calculations"
+            NumCatsUndefinedPrec+=1
+        else:            
+            totPrec+=a/(a+b)##Precision for this category
+            totRec+=a/(a+c)##Recall for this category
+            A+=a
+            B+=b
+            C+=c
+            D+=d
 ###--------------------DEBUG STATEMENTS----------------------
     #print cat, a
     #print cat, b
@@ -45,8 +50,8 @@ def evaluation_multi_class(liResults,listCats):
     #print cat, d
     #print (a+b+c+d)==len(testset)
 ###--------------------DEBUG STATEMENTS----------------------
-    MacroPrec = totPrec/len(CatResultsDict)
-    MacroRec = totRec/len(CatResultsDict)
+    MacroPrec = totPrec/(len(CatResultsDict)-NumCatsUndefinedPrec)
+    MacroRec = totRec/(len(CatResultsDict)-NumCatsUndefinedPrec)
     MacroF = (2*MacroPrec*MacroRec)/(MacroPrec+MacroRec)
 
     MicroPrec = A/(A+B)
@@ -66,35 +71,32 @@ def evaluation_multi_class(liResults,listCats):
 
     evaluation_fraction_misclass(liResults)
 
-def evaluation_binary(liResults,listCats):
+def evaluation_binary(liResults):
       
- #Calculate the precision, reacall and f-measure  
+ #Calculate the precision, recall and f-measure  
     a=0
     b=0
     c=0
     d=0
-    if len(listCats)<3:
-        cat = listCats[0]
-        for t in liResults:
-            if cat==t[1]:
-                if cat==t[2]:
-                    a+=1
-                else:
-                    b+=1
+    cat = liResults[0][1]
+    for t in liResults:
+        if cat==t[1]:
+            if cat==t[2]:
+                a+=1
             else:
-                if cat==t[2]:
-                    c+=1
-                else:
-                    d+=1
-        Precision = a/(a+b)
-        Recall = a/(a+c)
+                b+=1
+        else:
+            if cat==t[2]:
+                c+=1
+            else:
+                d+=1
+    Precision = a/(a+b)
+    Recall = a/(a+c)
+    print "The following parameters are recorded for the category " , cat
+    print "Precision =", Precision
+    print "Recall =", Recall
+    print "F-measure =", (2*Precision*Recall)/(Precision+Recall)
 
-        print "Precision =", Precision
-        print "Recall =", Recall
-        print "F-measure =", (2*Precision*Recall)/(Precision+Recall)
-
-    else:
-        print "Please use the evaluation_multi_class function"
 
 ###--------------------DEBUG STATEMENTS----------------------
 #print (a+b+c+d)==len(testset)
