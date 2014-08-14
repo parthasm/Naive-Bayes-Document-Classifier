@@ -27,5 +27,5 @@ Code Files:
 ##Multinomial_NB_FS.py
 
 
-####Bernoulli_NB_FS.py
+##Bernoulli_NB_FS.py
 
