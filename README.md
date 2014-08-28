@@ -4,7 +4,7 @@ Naive-Bayes-Document-Classifier
 
 Code Files:
 
-##FilenameToCat.py
+#FilenameToCat.py
 
 
 ##Tokenizer.py
