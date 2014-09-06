@@ -3,17 +3,17 @@ Naive-Bayes-Document-Classifier
 
 This repository implements Supervised Document Classification in python. Here the task is to assign a document to one class or category. Some text-processing tasks are done by the Natural Language Toolkit, while the algorithm implementations are done from scratch. The classifiers are Multinomial Naive Bayes and Bernoulli Naive Bayes while the feature selectors, till now, Mutual Information and Gini Coefficient.There are six versions of the classifier:
 
-a) Bernoulli Navie Bayes, without Feature Selection
+a) Bernoulli Navie Bayes, without Feature Selection (Bernoulli_NB_no_FS.py)
 
-b) Bernoulli Navie Bayes, with Mutual Information as Feature Selector
+b) Bernoulli Navie Bayes, with Mutual Information as Feature Selector (Bernoulli_NB_FS.py)
 
-c) Bernoulli Navie Bayes, with Gini Coefficient as Feature Selector
+c) Bernoulli Navie Bayes, with Gini Coefficient as Feature Selector (Bernoulli_NB_FS.py)
 
-d) Multinomial Navie Bayes, without Feature Selection
+d) Multinomial Navie Bayes, without Feature Selection (Multinomial_NB_no_FS.py)
 
-e) Multinomial Navie Bayes, with Mutual Information as Feature Selector
+e) Multinomial Navie Bayes, with Mutual Information as Feature Selector (Multinomial_NB_FS.py)
 
-f) Multinomial Navie Bayes, with Gini Coefficient as Feature Selector
+f) Multinomial Navie Bayes, with Gini Coefficient as Feature Selector (Multinomial_NB_FS.py)
 
 
 Gini Coefficient is an experimental feature selector. The concept used is from the paper "Feature Selection for Text Classification Based on
