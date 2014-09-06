@@ -1,4 +1,4 @@
-Corpus: mr
+Corpus: movie reviews
 Classifier: Bernoulli NB
 Feature Selection: No
 
@@ -13,7 +13,7 @@ Fraction of Errors =  0.207142857143
 The time taken by the trained classifier to assign labels
 77.7200000286 seconds
 --------------------------------------------------------------------------------------------------------------------------------
-Corpus: mr
+Corpus: movie reviews
 Classifier: Bernoulli NB
 Feature Selection: Gini
 
@@ -29,7 +29,7 @@ Fraction of Errors =  0.246428571429
 The time taken by the trained classifier to assign labels
 5.64700007439 seconds
 --------------------------------------------------------------------------------------------------------------------------------
-Corpus: mr
+Corpus: movie reviews
 Classifier: Bernoulli NB
 Feature Selection: MI
 
@@ -105,7 +105,7 @@ The time taken by the trained classifier to assign labels
 90.9789998531 seconds
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
-Corpus: mr
+Corpus: movie reviews
 Classifier: Multinomial NB
 Feature Selection: No
 
@@ -120,7 +120,7 @@ Fraction of Errors =  0.195
 The time taken by the trained classifier to assign labels
 4.03999996185 seconds
 --------------------------------------------------------------------------------------------------------------------------------
-Corpus: mr
+Corpus: movie reviews
 Classifier: Multinomial NB
 Feature Selection: Gini
 
@@ -136,7 +136,7 @@ Fraction of Errors =  0.282142857143
 The time taken by the trained classifier to assign labels
 2.90199995041 seconds
 --------------------------------------------------------------------------------------------------------------------------------
-Corpus: mr
+Corpus: movie reviews
 Classifier: Multinomial NB
 Feature Selection: MI
 
