@@ -1,7 +1,7 @@
 Naive-Bayes-Document-Classifier
 ===============================
 
-This repository implements Supervised Document Classification in python. Here the task is to assign a document to one classes or category. Some text-processing tasks are done by the Natural Language Toolkit, while the algorithm implementations are done from scratch. The classifiers are Multinomial Naive Bayes and Bernoulli Naive Bayes while the feature selectors, till now, Mutual Information and Gini Coefficient.
+This repository implements Supervised Document Classification in python. Here the task is to assign a document to one class or category. Some text-processing tasks are done by the Natural Language Toolkit, while the algorithm implementations are done from scratch. The classifiers are Multinomial Naive Bayes and Bernoulli Naive Bayes while the feature selectors, till now, Mutual Information and Gini Coefficient.
 
 Read more on these topics from these links:
 
