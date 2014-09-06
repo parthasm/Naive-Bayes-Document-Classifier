@@ -49,20 +49,19 @@ c) F1-Measure
 
 d) Fraction of Mis-Classified Documents
 
-Sources:
-
-http://rushdishams.blogspot.com/2011/08/micro-and-macro-average-of-precision.html
-
-http://en.wikipedia.org/wiki/F1_score
-
-http://en.wikipedia.org/wiki/Precision_and_recall
 
 If precision or recall for a category in multi-class classification is not defined, the category is excluded from the calculation of the macro and micro variables except for Fraction of Mis-Classified Documents.
 
 
 ##Observations
 
+Multinomial Naive Bayes without feature selection is already a strong and simple classifier. Therefore there is no improvement in accuracy and time taken respectively on using feature selection. 
 
+
+In Bernoulli Naive Bayes, all the words in the vocabulary contribute to the score for each category for a document, unlike Multinomial Naive Bayes where only the words in the document contribute to the score for each category. Therefore, Bernoulli Naive Bayes without Feature Selection takes a lot of time, to traverse the entire vocabulary of the corpus for every document in the testset. It is also a weak classifier, without feature selection. On using feature selection, time taken to run the classifier over the test set is reduced by as much as 97%.
+
+
+The movie reviews corpus is not suitable for Naive Bayes Classification. This is presumably because Naive Bayes Classifier considers words independently of each other and focusses on their counts. This strategy would work great if the categories have their specific jargon. Hence the great performance on the reuters corpus. The movie reviews corpus, on the other hand, would have similar or even same words in both the categories. Hence Naive Bayes Classification is not suitable in this case.
 
 
 ##Sources:
