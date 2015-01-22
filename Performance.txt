@@ -1,3 +1,19 @@
+				Summary Table:
+Corpus / Dataset	Algorithm / Classifier	Feature Selector	TrainTime	RunTime	Errors%
+reuters - nltk	Multinomial Naïve Bayes		None				14.48	3.81	5.41
+reuters - nltk	Multinomial Naïve Bayes		Mutual Information	37.32	3.28	7.89
+reuters - nltk	Multinomial Naïve Bayes		Gini Coefficient	26.01	3.18	10.02
+reuters - nltk	Bernoulli Naïve Bayes		None				13.85	604.42	22.04
+reuters - nltk	Bernoulli Naïve Bayes		Mutual Information	24.93	90.98	9.76
+reuters - nltk	Bernoulli Naïve Bayes		Gini Coefficient	24.63	127.47	11.09
+					
+movie reviews - nltk	Multinomial Naïve Bayes	None			1.51	4.04	19.5
+movie reviews - nltk	Multinomial Naïve Bayes	Mutual Information	8.08	3.15	24.79
+movie reviews - nltk	Multinomial Naïve Bayes	Gini Coefficient	6.68	2.9	28.21
+movie reviews - nltk	Bernoulli Naïve Bayes	None			1.64	77.72	20.71
+movie reviews - nltk	Bernoulli Naïve Bayes	Mutual Information	6.83	5.05	24.36
+movie reviews - nltk	Bernoulli Naïve Bayes	Gini Coefficient	5.91	5.65	24.64
+
 Corpus: movie reviews
 Classifier: Bernoulli NB
 Feature Selection: No
