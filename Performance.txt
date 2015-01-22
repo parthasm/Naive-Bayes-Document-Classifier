@@ -1,33 +1,32 @@
-				Summary Table:
-Corpus / Dataset	Algorithm / Classifier	Feature Selector	TrainTime	RunTime	Errors%
-reuters - nltk	Multinomial Naïve Bayes		None				14.48	3.81	5.41
-reuters - nltk	Multinomial Naïve Bayes		Mutual Information	37.32	3.28	7.89
-reuters - nltk	Multinomial Naïve Bayes		Gini Coefficient	26.01	3.18	10.02
-reuters - nltk	Bernoulli Naïve Bayes		None				13.85	604.42	22.04
-reuters - nltk	Bernoulli Naïve Bayes		Mutual Information	24.93	90.98	9.76
-reuters - nltk	Bernoulli Naïve Bayes		Gini Coefficient	24.63	127.47	11.09
+				Output Table:
+Corpus / Dataset	Algorithm / Classifier		Feature Selector	TrainTime	RunTime		Errors%
+reuters - nltk		Multinomial Naïve Bayes		None			6.16		2.22		5.41
+reuters - nltk		Multinomial Naïve Bayes		Mutual Information	12.12		2.02		7.89
+reuters - nltk		Multinomial Naïve Bayes		Gini Coefficient	12.54		1.9		9.98
+reuters - nltk		Bernoulli Naïve Bayes		None			6.28		346.86		22.04
+reuters - nltk		Bernoulli Naïve Bayes		Mutual Information	11.68		44.52		9.76
+reuters - nltk		Bernoulli Naïve Bayes		Gini Coefficient	12.37		63.62		11.09
 					
-movie reviews - nltk	Multinomial Naïve Bayes	None			1.51	4.04	19.5
-movie reviews - nltk	Multinomial Naïve Bayes	Mutual Information	8.08	3.15	24.79
-movie reviews - nltk	Multinomial Naïve Bayes	Gini Coefficient	6.68	2.9	28.21
-movie reviews - nltk	Bernoulli Naïve Bayes	None			1.64	77.72	20.71
-movie reviews - nltk	Bernoulli Naïve Bayes	Mutual Information	6.83	5.05	24.36
-movie reviews - nltk	Bernoulli Naïve Bayes	Gini Coefficient	5.91	5.65	24.64
+movie reviews - nltk	Multinomial Naïve Bayes		None			1		2.44		19.5
+movie reviews - nltk	Multinomial Naïve Bayes		Mutual Information	3.48		1.88		24.79
+movie reviews - nltk	Multinomial Naïve Bayes		Gini Coefficient	3.66		1.66		28.21
+movie reviews - nltk	Bernoulli Naïve Bayes		None			0.99		46.56		20.71
+movie reviews - nltk	Bernoulli Naïve Bayes		Mutual Information	3.23		2.89		24.36
+movie reviews - nltk	Bernoulli Naïve Bayes		Gini Coefficient	4.36		3.02		24.64
+
+Times in seconds
+---------------------------------------------------------------------------------------------------------------------------
 
 Corpus: movie reviews
 Classifier: Bernoulli NB
 Feature Selection: No
 
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'm'
-The Classifier is trained and it took
-1.63800001144 seconds
 The following parameters are recorded for the category  neg
 Precision = 0.741176470588
 Recall = 0.9
 F-measure = 0.812903225806
-Fraction of Errors =  0.207142857143
-The time taken by the trained classifier to assign labels
-77.7200000286 seconds
+
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: movie reviews
 Classifier: Bernoulli NB
@@ -35,15 +34,11 @@ Feature Selection: Gini
 
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'm'
 Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'g'
-The Classifier is trained and it took
-5.91300010681 seconds
 The following parameters are recorded for the category  neg
 Precision = 0.734478203435
 Recall = 0.794285714286
 F-measure = 0.763212079616
-Fraction of Errors =  0.246428571429
-The time taken by the trained classifier to assign labels
-5.64700007439 seconds
+
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: movie reviews
 Classifier: Bernoulli NB
@@ -51,23 +46,18 @@ Feature Selection: MI
 
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'm'
 Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'm'
-The Classifier is trained and it took
-6.83200001717 seconds
+
 The following parameters are recorded for the category  neg
 Precision = 0.751048951049
 Recall = 0.767142857143
 F-measure = 0.759010600707
-Fraction of Errors =  0.243571428571
-The time taken by the trained classifier to assign labels
-5.05399990082 seconds
+
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: reuters
 Classifier: Bernoulli NB
 Feature Selection: No
 
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
-The Classifier is trained and it took
-13.8529999256 seconds
 Precision is undefined for category  money-supply
 This category is excluded from precision and recall calculations
 Precision is undefined for category  coffee
@@ -80,9 +70,7 @@ Macro F-measure= 0.591399219864
 Micro Precision= 0.779600886918
 Micro Recall= 0.81051175657
 Micro F-measure= 0.794755877034
-Fraction of Errors =  0.220399113082
-The time taken by the trained classifier to assign labels
-604.423000097 seconds
+
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: reuters
 Classifier: Bernoulli NB
@@ -90,17 +78,13 @@ Feature Selection: Gini
 
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
 Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'g'
-The Classifier is trained and it took
-24.6319999695 seconds
 Macro Precision= 0.810244452686
 Macro Recall= 0.777135918022
 Macro F-measure= 0.793344907345
 Micro Precision= 0.889135254989
 Micro Recall= 0.889135254989
 Micro F-measure= 0.889135254989
-Fraction of Errors =  0.110864745011
-The time taken by the trained classifier to assign labels
-127.467999935 seconds
+
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: reuters
 Classifier: Bernoulli NB
@@ -108,17 +92,14 @@ Feature Selection: MI
 
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
 Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'm'
-The Classifier is trained and it took
-24.9289999008 seconds
+
 Macro Precision= 0.75645094895
 Macro Recall= 0.78890028879
 Macro F-measure= 0.772334932679
 Micro Precision= 0.90243902439
 Micro Recall= 0.90243902439
 Micro F-measure= 0.90243902439
-Fraction of Errors =  0.0975609756098
-The time taken by the trained classifier to assign labels
-90.9789998531 seconds
+
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: movie reviews
@@ -126,15 +107,11 @@ Classifier: Multinomial NB
 Feature Selection: No
 
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'm'
-The Classifier is trained and it took
-1.51300001144 seconds
 The following parameters are recorded for the category  neg
 Precision = 0.785809906292
 Recall = 0.838571428571
 F-measure = 0.811333794057
-Fraction of Errors =  0.195
-The time taken by the trained classifier to assign labels
-4.03999996185 seconds
+
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: movie reviews
 Classifier: Multinomial NB
@@ -142,15 +119,12 @@ Feature Selection: Gini
 
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'm'
 Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'g'
-The Classifier is trained and it took
-6.67700004578 seconds
+
 The following parameters are recorded for the category  neg
 Precision = 0.687116564417
 Recall = 0.8
 F-measure = 0.739273927393
-Fraction of Errors =  0.282142857143
-The time taken by the trained classifier to assign labels
-2.90199995041 seconds
+
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: movie reviews
 Classifier: Multinomial NB
@@ -158,32 +132,24 @@ Feature Selection: MI
 
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'm'
 Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'm'
-The Classifier is trained and it took
-8.08000016212 seconds
 The following parameters are recorded for the category  neg
 Precision = 0.741450068399
 Recall = 0.774285714286
 F-measure = 0.75751222921
-Fraction of Errors =  0.247857142857
-The time taken by the trained classifier to assign labels
-3.15199995041 seconds
+
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: reuters
 Classifier: Multinomial NB
 Feature Selection: No
 
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
-The Classifier is trained and it took
-14.4769999981 seconds
 Macro Precision= 0.918168673875
 Macro Recall= 0.807145119401
 Macro F-measure= 0.859084726261
 Micro Precision= 0.945898004435
 Micro Recall= 0.945898004435
 Micro F-measure= 0.945898004435
-Fraction of Errors =  0.0541019955654
-The time taken by the trained classifier to assign labels
-3.80599999428 seconds
+
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: reuters
 Classifier: Multinomial NB
@@ -192,17 +158,13 @@ Feature Selection: Gini
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
 
 Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'g'
-The Classifier is trained and it took
-26.0050001144 seconds
 Macro Precision= 0.777186954389
 Macro Recall= 0.867777239781
 Macro F-measure= 0.819987635553
 Micro Precision= 0.89977827051
 Micro Recall= 0.89977827051
 Micro F-measure= 0.89977827051
-Fraction of Errors =  0.10022172949
-The time taken by the trained classifier to assign labels
-3.1819999218 seconds
+
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: reuters
 Classifier: Multinomial NB
@@ -210,15 +172,11 @@ Feature Selection: MI
 
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
 Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'm'
-The Classifier is trained and it took
-37.3150000572 seconds
 Macro Precision= 0.816238513654
 Macro Recall= 0.845683247406
 Macro F-measure= 0.830700040229
 Micro Precision= 0.921064301552
 Micro Recall= 0.921064301552
 Micro F-measure= 0.921064301552
-Fraction of Errors =  0.0789356984479
-The time taken by the trained classifier to assign labels
-3.27600002289 seconds
+
 --------------------------------------------------------------------------------------------------------------------------------
