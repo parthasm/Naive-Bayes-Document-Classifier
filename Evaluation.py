@@ -4,45 +4,45 @@ from __future__ import division
                   #b) Number of docs identified incorrectly as in the category b
                   #c) Number of docs identified incorrectly as not in the category c
                   #d) Number of docs identified correctly as not in the category d
-def evaluation_multi_class(liResults,listCats):
-    CatResultsDict = {}
-    for cat in listCats:
-        CatResultsDict[cat]=[0,0,0,0]
-        for t in liResults:
+def evaluation_multi_class(li_results,list_cats):
+    cat_results_dict = {}
+    for cat in list_cats:
+        cat_results_dict[cat]=[0,0,0,0]
+        for t in li_results:
             if cat==t[1]:
                 if cat==t[2]:
-                    CatResultsDict[cat][0]+=1
+                    cat_results_dict[cat][0]+=1
                 else:
-                    CatResultsDict[cat][1]+=1
+                    cat_results_dict[cat][1]+=1
             else:
                 if cat==t[2]:
-                    CatResultsDict[cat][2]+=1
+                    cat_results_dict[cat][2]+=1
                 else:
-                    CatResultsDict[cat][3]+=1
-    NumCatsUndefinedPrec = 0
-    totPrec=0
-    totRec=0
-    A=0
-    B=0
-    C=0
-    D=0
-    for cat in CatResultsDict:
-        a = CatResultsDict[cat][0]
-        b = CatResultsDict[cat][1]
-        c = CatResultsDict[cat][2]
-        d = CatResultsDict[cat][3]
+                    cat_results_dict[cat][3]+=1
+    num_cats_undefined_prec = 0
+    tot_prec=0
+    tot_rec=0
+    a_sum=0
+    b_sum=0
+    c_sum=0
+    d_sum=0
+    for cat in cat_results_dict:
+        a = cat_results_dict[cat][0]
+        b = cat_results_dict[cat][1]
+        c = cat_results_dict[cat][2]
+        d = cat_results_dict[cat][3]
         #print cat, a, b, c, d
         if a+b==0:
-            print "Precision is undefined for category ", cat
+            print "precision is undefined for category ", cat
             print "This category is excluded from precision and recall calculations"
-            NumCatsUndefinedPrec+=1
+            num_cats_undefined_prec+=1
         else:            
-            totPrec+=a/(a+b)##Precision for this category
-            totRec+=a/(a+c)##Recall for this category
-            A+=a
-            B+=b
-            C+=c
-            D+=d
+            tot_prec+=a/(a+b)##precision for this category
+            tot_rec+=a/(a+c)##recall for this category
+            a_sum+=a
+            b_sum+=b
+            c_sum+=c
+            d_sum+=d
 ###--------------------DEBUG STATEMENTS----------------------
     #print cat, a
     #print cat, b
@@ -50,36 +50,36 @@ def evaluation_multi_class(liResults,listCats):
     #print cat, d
     #print (a+b+c+d)==len(testset)
 ###--------------------DEBUG STATEMENTS----------------------
-    MacroPrec = totPrec/(len(CatResultsDict)-NumCatsUndefinedPrec)
-    MacroRec = totRec/(len(CatResultsDict)-NumCatsUndefinedPrec)
-    MacroF = (2*MacroPrec*MacroRec)/(MacroPrec+MacroRec)
+    macro_precision = tot_prec/(len(cat_results_dict)-num_cats_undefined_prec)
+    macro_recall = tot_rec/(len(cat_results_dict)-num_cats_undefined_prec)
+    macro_f_measure = (2*macro_precision*macro_recall)/(macro_precision+macro_recall)
 
-    MicroPrec = A/(A+B)
-    MicroRec = A/(A+C)
-    MicroF = (2*MicroPrec*MicroRec)/(MicroPrec+MicroRec)
+    micro_precision = a_sum/(a_sum+b_sum)
+    micro_recall = a_sum/(a_sum+c_sum)
+    micro_f_measure = (2*micro_precision*micro_recall)/(micro_precision+micro_recall)
 
-    print "Macro Precision=",MacroPrec
-    print "Macro Recall=",MacroRec
-    print "Macro F-measure=",MacroF
+    print "Macro precision=",macro_precision
+    print "Macro recall=",macro_recall
+    print "Macro F-measure=",macro_f_measure
 
-    print "Micro Precision=",MicroPrec
-    print "Micro Recall=",MicroRec
-    print "Micro F-measure=",MicroF
+    print "Micro precision=",micro_precision
+    print "Micro recall=",micro_recall
+    print "Micro F-measure=",micro_f_measure
 
     
 
 
-    evaluation_fraction_misclass(liResults)
+    evaluation_fraction_misclass(li_results)
 
-def evaluation_binary(liResults):
+def evaluation_binary(li_results):
       
  #Calculate the precision, recall and f-measure  
     a=0
     b=0
     c=0
     d=0
-    cat = liResults[0][1]
-    for t in liResults:
+    cat = li_results[0][1]
+    for t in li_results:
         if cat==t[1]:
             if cat==t[2]:
                 a+=1
@@ -90,20 +90,20 @@ def evaluation_binary(liResults):
                 c+=1
             else:
                 d+=1
-    Precision = a/(a+b)
-    Recall = a/(a+c)
+    precision = a/(a+b)
+    recall = a/(a+c)
     print "The following parameters are recorded for the category " , cat
-    print "Precision =", Precision
-    print "Recall =", Recall
-    print "F-measure =", (2*Precision*Recall)/(Precision+Recall)
+    print "precision =", precision
+    print "recall =", recall
+    print "F-measure =", (2*precision*recall)/(precision+recall)
 
 
 ###--------------------DEBUG STATEMENTS----------------------
 #print (a+b+c+d)==len(testset)
 ###--------------------DEBUG STATEMENTS----------------------
 
-    evaluation_fraction_misclass(liResults)
+    evaluation_fraction_misclass(li_results)
     
-def evaluation_fraction_misclass(liResults):
-    numErrors = sum(t[1]!=t[2] for t in liResults)
-    print "Fraction of Errors = ", numErrors/len(liResults)
+def evaluation_fraction_misclass(li_results):
+    num_errors = sum(t[1]!=t[2] for t in li_results)
+    print "Fraction of Errors = ", num_errors/len(li_results)
