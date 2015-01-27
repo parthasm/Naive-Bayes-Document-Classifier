@@ -17,40 +17,46 @@ movie reviews - nltk	Bernoulli Naïve Bayes		Gini Coefficient	4.36		3.02		24.64
 Times in seconds
 ---------------------------------------------------------------------------------------------------------------------------
 
-Corpus: movie reviews
-Classifier: Bernoulli NB
+Corpus: reuters
+Classifier: Multinomial NB
 Feature Selection: No
 
-Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'm'
-The following parameters are recorded for the category  neg
-Precision = 0.741176470588
-Recall = 0.9
-F-measure = 0.812903225806
+Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
+Macro Precision= 0.918168673875
+Macro Recall= 0.807145119401
+Macro F-measure= 0.859084726261
+Micro Precision= 0.945898004435
+Micro Recall= 0.945898004435
+Micro F-measure= 0.945898004435
 
 --------------------------------------------------------------------------------------------------------------------------------
-Corpus: movie reviews
-Classifier: Bernoulli NB
-Feature Selection: Gini
-
-Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'm'
-Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'g'
-The following parameters are recorded for the category  neg
-Precision = 0.734478203435
-Recall = 0.794285714286
-F-measure = 0.763212079616
-
---------------------------------------------------------------------------------------------------------------------------------
-Corpus: movie reviews
-Classifier: Bernoulli NB
+Corpus: reuters
+Classifier: Multinomial NB
 Feature Selection: MI
 
-Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'm'
+Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
 Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'm'
+Macro Precision= 0.816238513654
+Macro Recall= 0.845683247406
+Macro F-measure= 0.830700040229
+Micro Precision= 0.921064301552
+Micro Recall= 0.921064301552
+Micro F-measure= 0.921064301552
 
-The following parameters are recorded for the category  neg
-Precision = 0.751048951049
-Recall = 0.767142857143
-F-measure = 0.759010600707
+--------------------------------------------------------------------------------------------------------------------------------
+Corpus: reuters
+Classifier: Multinomial NB
+Feature Selection: Gini
+
+Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
+
+Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'g'
+Macro Precision= 0.777186954389
+Macro Recall= 0.867777239781
+Macro F-measure= 0.819987635553
+Micro Precision= 0.89977827051
+Micro Recall= 0.89977827051
+Micro F-measure= 0.89977827051
 
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: reuters
@@ -74,20 +80,6 @@ Micro F-measure= 0.794755877034
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: reuters
 Classifier: Bernoulli NB
-Feature Selection: Gini
-
-Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
-Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'g'
-Macro Precision= 0.810244452686
-Macro Recall= 0.777135918022
-Macro F-measure= 0.793344907345
-Micro Precision= 0.889135254989
-Micro Recall= 0.889135254989
-Micro F-measure= 0.889135254989
-
---------------------------------------------------------------------------------------------------------------------------------
-Corpus: reuters
-Classifier: Bernoulli NB
 Feature Selection: MI
 
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
@@ -101,6 +93,21 @@ Micro Recall= 0.90243902439
 Micro F-measure= 0.90243902439
 
 --------------------------------------------------------------------------------------------------------------------------------
+Corpus: reuters
+Classifier: Bernoulli NB
+Feature Selection: Gini
+
+Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
+Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'g'
+Macro Precision= 0.810244452686
+Macro Recall= 0.777135918022
+Macro F-measure= 0.793344907345
+Micro Precision= 0.889135254989
+Micro Recall= 0.889135254989
+Micro F-measure= 0.889135254989
+
+--------------------------------------------------------------------------------------------------------------------------------
+
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: movie reviews
 Classifier: Multinomial NB
@@ -111,6 +118,18 @@ The following parameters are recorded for the category  neg
 Precision = 0.785809906292
 Recall = 0.838571428571
 F-measure = 0.811333794057
+
+--------------------------------------------------------------------------------------------------------------------------------
+Corpus: movie reviews
+Classifier: Multinomial NB
+Feature Selection: MI
+
+Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'm'
+Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'm'
+The following parameters are recorded for the category  neg
+Precision = 0.741450068399
+Recall = 0.774285714286
+F-measure = 0.75751222921
 
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: movie reviews
@@ -127,56 +146,42 @@ F-measure = 0.739273927393
 
 --------------------------------------------------------------------------------------------------------------------------------
 Corpus: movie reviews
-Classifier: Multinomial NB
+Classifier: Bernoulli NB
+Feature Selection: No
+
+Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'm'
+The following parameters are recorded for the category  neg
+Precision = 0.741176470588
+Recall = 0.9
+F-measure = 0.812903225806
+
+--------------------------------------------------------------------------------------------------------------------------------
+Corpus: movie reviews
+Classifier: Bernoulli NB
 Feature Selection: MI
 
 Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'm'
 Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'm'
+
 The following parameters are recorded for the category  neg
-Precision = 0.741450068399
-Recall = 0.774285714286
-F-measure = 0.75751222921
+Precision = 0.751048951049
+Recall = 0.767142857143
+F-measure = 0.759010600707
 
 --------------------------------------------------------------------------------------------------------------------------------
-Corpus: reuters
-Classifier: Multinomial NB
-Feature Selection: No
-
-Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
-Macro Precision= 0.918168673875
-Macro Recall= 0.807145119401
-Macro F-measure= 0.859084726261
-Micro Precision= 0.945898004435
-Micro Recall= 0.945898004435
-Micro F-measure= 0.945898004435
-
---------------------------------------------------------------------------------------------------------------------------------
-Corpus: reuters
-Classifier: Multinomial NB
+Corpus: movie reviews
+Classifier: Bernoulli NB
 Feature Selection: Gini
 
-Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
-
+Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'm'
 Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'g'
-Macro Precision= 0.777186954389
-Macro Recall= 0.867777239781
-Macro F-measure= 0.819987635553
-Micro Precision= 0.89977827051
-Micro Recall= 0.89977827051
-Micro F-measure= 0.89977827051
+The following parameters are recorded for the category  neg
+Precision = 0.734478203435
+Recall = 0.794285714286
+F-measure = 0.763212079616
 
 --------------------------------------------------------------------------------------------------------------------------------
-Corpus: reuters
-Classifier: Multinomial NB
-Feature Selection: MI
 
-Enter within quotes, m for movie reviews corpus,r for reuters corpus( default is reuters) : 'r'
-Enter within quotes, g for gini coefficient,m for mutual information( default is mutual information)  as feature selector: 'm'
-Macro Precision= 0.816238513654
-Macro Recall= 0.845683247406
-Macro F-measure= 0.830700040229
-Micro Precision= 0.921064301552
-Micro Recall= 0.921064301552
-Micro F-measure= 0.921064301552
 
---------------------------------------------------------------------------------------------------------------------------------
+
+
