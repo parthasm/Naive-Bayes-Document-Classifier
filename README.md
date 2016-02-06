@@ -19,6 +19,9 @@ f) Multinomial Navie Bayes, with Gini Coefficient as Feature Selector (Multinomi
 Gini Coefficient is an experimental feature selector. The concept used is from the paper "Feature Selection for Text Classification Based on
 Gini Coefficient of Inequality" by Sanasam Ranbir Singh, Hema A. Murthy, Timothy A. Gonsalves. The basic concept is that the high conditional probability of a word given a category normalized by the sum of conditional probabilities of the word in all categories indicate strong association of the word with the category. Thus the word is a good feature for the category.
 
+##Note:
+
+The python code is sub-optimal and uses poor coding practices like returning large objects by functions, use of global variables, lack of main block etc. Coming soon - a C++ version with hopefully better coding standards. :-) 
 
 
 ##Evaluation of the Classifiers:
